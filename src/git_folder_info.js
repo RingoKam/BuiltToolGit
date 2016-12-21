@@ -3,20 +3,17 @@ const path = require('path');
 const getRepoInfo = require('git-repo-info');
 
 function readDirectory(directory, gitFolder) {
-    const isDirectory = fs.lstatSync(directory).isDirectory();
-    if (isDirectory) {
+    if (IsGit(directory)) {
+        let repoInfo = getRepoInfo(directory);
+        gitFolder.push({
+            "file": directory,
+            "repoInfo": repoInfo
+        });
+    } else if (fs.lstatSync(directory).isDirectory()) {
         var files = fs.readdirSync(directory);
         for (let i = 0; i < files.length; i++) {
             let fullpath = directory + "/" + files[i];
-            if (IsGit(fullpath)) {
-                let repoInfo = getRepoInfo(fullpath);
-                gitFolder.push({
-                    "file": files[i],
-                    "repoInfo": repoInfo
-                });
-            } else {
-                readDirectory(fullpath, gitFolder);
-            }
+            readDirectory(fullpath, gitFolder);
         }
     }
 };
@@ -30,4 +27,4 @@ exports.GitFolders = (filePath) => {
     let gitFolder = [];
     readDirectory(filePath, gitFolder);
     return gitFolder;
-} 
+}
