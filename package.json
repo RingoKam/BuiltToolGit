@@ -19,5 +19,8 @@
   "homepage": "https://github.com/RingoKam/BuiltToolGit",
   "devDependencies": {
     "electron": "^1.4.12"
+  },
+  "dependencies": {
+    "electron-prebuilt": "^1.4.13"
   }
 }

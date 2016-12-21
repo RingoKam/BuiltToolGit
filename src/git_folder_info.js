@@ -2,14 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const getRepoInfo = require('git-repo-info');
 
-let gitFolder = [];
-
-let directory = "C:\\Git\\reference_proj";
-console.log("Current Directory: " + directory);
-
-readDirectory(directory);
-
-function readDirectory(directory) {
+function readDirectory(directory, gitFolder) {
     if (fs.lstatSync(directory).isDirectory()) {
         fs.readdir(directory, (err, files) => {
             if (err) {
@@ -24,12 +17,13 @@ function readDirectory(directory) {
                             "repoInfo": repoInfo
                         });
                     } else {
-                        readDirectory(fullpath);
+                        readDirectory(fullpath, gitFolder);
                     }
                 }
             }
         });
     }
+    return gitFolder; 
 }
 
 function IsGit(fullpath) {
@@ -37,4 +31,7 @@ function IsGit(fullpath) {
         return true;
 }
 
-console.log(gitFolder);
+exports.GitFolders = (filePath) => {
+    let gitFolder = [];
+    return readDirectory(filePath, gitFolder); 
+} 
