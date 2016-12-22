@@ -10,9 +10,7 @@ electron.app.on('ready', () => {
     })
 
     mainWindow.loadURL('file://' + __dirname + '/index.html');
-    mainWindow.webContents.debugger.attach(); 
-    
-    electron.dialog.s
+   
     menuTemplate = [{
         label: "File",
         submenu: [{
@@ -31,5 +29,15 @@ electron.app.on('ready', () => {
     }];
 
     let menu = electron.Menu.buildFromTemplate(menuTemplate)
+
+     menu.append(new electron.MenuItem({
+        role: "reload"
+    }));
+
+    //Dev Tools--- 
+    menu.append(new electron.MenuItem({
+        role: "toggledevtools"
+    }));
+
     electron.Menu.setApplicationMenu(menu);
 });

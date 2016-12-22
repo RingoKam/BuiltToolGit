@@ -1,12 +1,22 @@
 <html>
 
 <head>
-    <title>Build Tool - build your build Git in a flash!</title>
-    <script type="text/javascript" src="script.js"></script>
+    <title>Build Tool - Build your git Environment it in a flash!</title>
+    <link rel="stylesheet" href="../lib/jstree/style.css" />
+    <script>
+        window.$ = window.jQuery = require('../node_modules/jquery/dist/jquery.min.js');
+    </script>
+    <!--<script type="text/javascript" src="../lib/jstree/jstree.js"></script>-->
+    <!--<script type="text/javascript" src="script.js"></script>-->
 </head>
 
 <body>
     <h1>HELLO WORLD!</h1>
+    <ul id="jstree">
+        <li>Root node 1</li>
+        <li>Root node 2</li>
+    </ul>
+    <script> $("#jstree").jstree(); </script> 
 </body>
 
 </html>
