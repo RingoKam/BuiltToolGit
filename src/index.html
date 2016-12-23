@@ -4,13 +4,10 @@
     <title>Build Tool - Build your git Environment it in a flash!</title>
     <link rel="stylesheet" href="../lib/jstree/style.css" />
     <script>
-        //window.$ = window.jQuery = require('../node_modules/jquery/dist/jquery.min.js');
         window.$ = window.jQuery = require('jquery');
         require('jstree');
         require('bootstrap');
     </script>
-    <!--<script type="text/javascript" src="../lib/jstree/jstree.js"></script>-->
-    <!--<script type="text/javascript" src="script.js"></script>-->
 </head>
 
 <body>
@@ -22,7 +19,19 @@
         </ul>
     </div>
     <script>
-        $("#html1").jstree();
+        $("#html1").jstree({
+                    "core": {
+                        "animation": 0,
+                        "check_callback": true,
+                        "themes": {
+                            "stripes": true
+                        },
+                        "plugins": [
+                            "contextmenu", "dnd", "search",
+                            "state", "types", "wholerow"
+                        ]
+                    }
+        }); 
     </script>
 </body>
 

@@ -9,7 +9,7 @@ electron.app.on('ready', () => {
         width: 800
     })
 
-    mainWindow.loadURL('file://' + __dirname + '/index.html');
+    mainWindow.loadURL('file://' + __dirname + '/template.html');
    
     menuTemplate = [{
         label: "File",
