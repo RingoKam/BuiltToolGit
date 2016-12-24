@@ -9,18 +9,17 @@ electron.app.on('ready', () => {
         width: 800
     })
 
-    mainWindow.loadURL('file://' + __dirname + '/template.html');
+    mainWindow.loadURL('file://' + __dirname + '/index.html');
    
     menuTemplate = [{
         label: "File",
         submenu: [{
-            label: 'open',
+            label: 'Add directory to current collection',
             click: () => {
                 electron.dialog.showOpenDialog({
                     title: "Select a folder",
                     properties: ["openDirectory"]
                 },  (filePath) => {
-                    console.log(filePath);
                     let gitFolder = gitFolderInfo.GitFolders(filePath[0]);
                     console.log(gitFolder);
                 });

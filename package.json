@@ -21,6 +21,7 @@
     "electron": "^1.4.12"
   },
   "dependencies": {
-    "electron-prebuilt": "^1.4.13"
+    "electron-prebuilt": "^1.4.13",
+    "parse-git-config": "^1.1.1"
   }
 }

@@ -1,13 +1,16 @@
 const fs = require('fs');
 const path = require('path');
 const getRepoInfo = require('git-repo-info');
+const parseGit = require('parse-git-config');
 
 function readDirectory(directory, gitFolder) {
-    if (IsGit(directory)) {
-        let repoInfo = getRepoInfo(directory);
+    const repoInfo = getRepoInfo(directory); 
+    if (repoInfo.sha) {
+        const config = parseGit.sync({cwd: directory})
         gitFolder.push({
             "file": directory,
-            "repoInfo": repoInfo
+            "repoInfo": repoInfo,
+            "config": config
         });
     } else if (fs.lstatSync(directory).isDirectory()) {
         var files = fs.readdirSync(directory);
@@ -18,10 +21,10 @@ function readDirectory(directory, gitFolder) {
     }
 };
 
-function IsGit(fullpath) {
-    if (getRepoInfo(fullpath).sha)
-        return true;
-}
+// function IsGit(fullpath) {
+//     if (getRepoInfo(fullpath).sha)
+//         return true;
+// }
 
 exports.GitFolders = (filePath) => {
     let gitFolder = [];
