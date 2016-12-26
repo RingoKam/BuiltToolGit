@@ -39,10 +39,12 @@ function treeStruct(tree, filePathObj, index, gitFolder) {
             "icon": "icon-112",
             "children": [{
                 "text": "URL: " + url,
-                "icon": "ti-link"
+                "icon": "ti-link",
+                "state": {"disabled": true}
             }, {
                 "text": "Branch: " + gitFolder.repoInfo.branch,
-                "icon": "icon-11"
+                "icon": "icon-11",
+                "state": {"disabled": true}
             }]
         });
     }
