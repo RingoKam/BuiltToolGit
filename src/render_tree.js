@@ -14,22 +14,32 @@ let template = ({
 });
 
 function treeStruct(tree, filePathObj, index, gitFolder) {
-    let position = tree.findIndex(el => el.text == filePathObj[index])
-    if (position < 0 && index < filePathObj.length) {
-        const newObj = {"text": filePathObj[index], "children": []} 
-        tree.push(newObj);
-        position = 0;   
-    }
-    if(index < filePathObj.length){
-        index++; 
-        treeStruct(tree[position].children, filePathObj, index, gitFolder); 
-    } else if(index === filePathObj.length) {
+    if (filePathObj[index]) {
+        let position = tree.findIndex(el => el.text == filePathObj[index]);
+        if (position < 0 && index < filePathObj.length) {
+            if (filePathObj[index] === "MakingCodeObjectOrientated" || filePathObj[index] === "electron-quick-start") {
+                console.log(tree, filePathObj, index, gitFolder);
+            }
+            const newObj = {
+                "text": filePathObj[index],
+                "children": []
+            }
+            var length = tree.push(newObj);
+            position = length - 1;
+        }
+        if (index < filePathObj.length) {
+            index++;
+            treeStruct(tree[position].children, filePathObj, index, gitFolder);
+        }
+    } else if (index === filePathObj.length && gitFolder) {
+        const url = gitFolder.config["remote \"origin\""] ? gitFolder.config["remote \"origin\""].url : "Repo is not store on remote"
         tree.push({
-            "text": gitFolder.file.name, 
-            "children": [
-                {"text": "URL: " + gitFolder.config["remote \"origin\""].url}, 
-                {"text": "Branch: " + gitFolder.repoInfo.branch}
-            ]
+            "text": gitFolder.file.name,
+            "children": [{
+                "text": "URL: " + url
+            }, {
+                "text": "Branch: " + gitFolder.repoInfo.branch
+            }]
         });
     }
 };
@@ -38,9 +48,9 @@ exports.renderJsTree = (selector, gitFolder) => {
     let tree = [];
     for (let i = 0; i < gitFolder.length; i++) {
         let filePathObj = (gitFolder[i].repoInfo.root).split("\\");
-        filePathObj.pop(); 
+        filePathObj.pop();
         treeStruct(tree, filePathObj, 0, gitFolder[i]);
     }
-    template.core.data = tree; 
-    $(selector).jstree(template); 
+    template.core.data = tree;
+    $(selector).jstree(template);
 };
