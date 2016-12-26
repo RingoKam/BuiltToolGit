@@ -19,7 +19,7 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/themify-icons.css" rel="stylesheet">
-    <!-- Jstree --> 
+    <!-- Jstree -->
     <link rel="stylesheet" href="../lib/jstree/style.css" />
 </head>
 
@@ -94,12 +94,14 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div id="html1">
-                            <ul>
-                                <li>Root node 1</li>
-                                <li>Root node 2</li>
-                            </ul>
+                        <input id="addnewcollection" value="Add New Collection" type="button"/>
+                    </div>
+                    <div class="row">
+                        <div id="tree">
                         </div>
+                    </div>
+                    <div class="row">
+                        <div id="test"></div>
                     </div>
                 </div>
             </div>
@@ -127,23 +129,11 @@
 </body>
 <script>
     window.$ = window.jQuery = require('jquery');
-    require('jstree');
     require('bootstrap');
-</script>
-<script>
-    $("#html1").jstree({
-        "core": {
-            "animation": 0,
-            "check_callback": true,
-            "themes": {
-                "stripes": true
-            },
-            "plugins": [
-                "contextmenu", "dnd", "search",
-                "state", "types", "wholerow"
-            ]
-        }
-    });
+    require('./render_tree');
+    require('./index.js');
+    // require('jstree');
+    // require('bootstrap');
 </script>
 <!--   Core JS Files   -->
 <!--<script type="text/javascript" src="../assets/js/jquery-1.10.2.js"> </script>-->
