@@ -6,7 +6,7 @@ const parseGit = require('parse-git-config');
 function readDirectory(directory, gitFolder) {
     const repoInfo = getRepoInfo(directory); 
     if (repoInfo.sha) {
-        const config = parseGit.sync({cwd: directory}); 
+        const config = parseGit.sync({path: directory + "/.git/config"}); 
         const file = path.parse(directory); 
         gitFolder.push({
             "file": file,

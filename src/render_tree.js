@@ -37,7 +37,7 @@ function treeStruct(tree, filePathObj, index, gitFolder) {
 exports.renderJsTree = (selector, gitFolder) => {
     let tree = [];
     for (let i = 0; i < gitFolder.length; i++) {
-        const filePathObj = (gitFolder[i].repoInfo.root).split("\\");
+        let filePathObj = (gitFolder[i].repoInfo.root).split("\\");
         filePathObj.pop(); 
         treeStruct(tree, filePathObj, 0, gitFolder[i]);
     }
