@@ -22,6 +22,7 @@ function treeStruct(tree, filePathObj, index, gitFolder) {
             }
             const newObj = {
                 "text": filePathObj[index],
+                "icon": "ti-folder",
                 "children": []
             }
             var length = tree.push(newObj);
@@ -35,10 +36,13 @@ function treeStruct(tree, filePathObj, index, gitFolder) {
         const url = gitFolder.config["remote \"origin\""] ? gitFolder.config["remote \"origin\""].url : "Repo is not store on remote"
         tree.push({
             "text": gitFolder.file.name,
+            "icon": "icon-112",
             "children": [{
-                "text": "URL: " + url
+                "text": "URL: " + url,
+                "icon": "ti-link"
             }, {
-                "text": "Branch: " + gitFolder.repoInfo.branch
+                "text": "Branch: " + gitFolder.repoInfo.branch,
+                "icon": "icon-11"
             }]
         });
     }
