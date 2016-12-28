@@ -17,9 +17,6 @@ function treeStruct(tree, filePathObj, index, gitFolder) {
     if (filePathObj[index]) {
         let position = tree.findIndex(el => el.text == filePathObj[index]);
         if (position < 0 && index < filePathObj.length) {
-            if (filePathObj[index] === "MakingCodeObjectOrientated" || filePathObj[index] === "electron-quick-start") {
-                console.log(tree, filePathObj, index, gitFolder);
-            }
             const newObj = {
                 "text": filePathObj[index],
                 "icon": "ti-folder",
