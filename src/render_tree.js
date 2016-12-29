@@ -34,13 +34,32 @@ function treeStruct(tree, filePathObj, index, gitFolder) {
         tree.push({
             "text": gitFolder.file.name,
             "icon": "icon-112",
+            //"a_attr":  {"class": "git-folder"}, 
+             "li_attr":  {"class": "git-folder"}, 
             "children": [{
                 "text": "URL: " + url,
                 "icon": "ti-link",
+                "a_attr":  {"class": "git-url"}, 
                 "state": {"disabled": true}
             }, {
                 "text": "Branch: " + gitFolder.repoInfo.branch,
                 "icon": "icon-11",
+                "a_attr":  {"class": "git-branch"}, 
+                "state": {"disabled": true}
+            }, {
+                "text": "SHA: " + gitFolder.repoInfo.sha,
+                "icon": "icon-052",
+                "a_attr":  {"class": "git-sha"}, 
+                "state": {"disabled": true}
+            }, {
+                "text": "Date: " + gitFolder.repoInfo.committerDate,
+                "icon": "ti-calendar",
+                "a_attr":  {"class": "git-date"}, 
+                "state": {"disabled": true}
+            }, {
+                "text": "Commit Message: " + gitFolder.repoInfo.commitMessage,
+                "icon": "ti-info-alt",
+                "a_attr":  {"class": "git-msg"}, 
                 "state": {"disabled": true}
             }]
         });
@@ -57,3 +76,17 @@ exports.renderJsTree = (selector, gitFolder) => {
     template.core.data = tree;
     $(selector).jstree(template);
 };
+
+exports.GetAllSelected = (selector) => {
+        //let tree = $(selector).jstree(true);
+        //let selectedIds = [];
+        // let selectedIds = $('.git-folder[aria-selected=true]'); 
+        // $.each($('.git-folder[aria-selected=true]'), (index, ele) => {
+        //     const treeObjs = tree.get_node(ele.id); 
+        //     $.each(treeObjs.children, (index2, children) => {
+        //         var x = children.text;
+        //     })
+        // })
+        // console.log(selectedIds);
+        //return temp; 
+}
