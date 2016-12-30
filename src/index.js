@@ -3,6 +3,7 @@ const config = require('electron-config');
 const gitFolderInfo = require('./git_folder_info');
 const renderTree = require('./render_tree');
 const renderSpinner = require('./render_spinner');
+const createSh = require('./create_sh'); 
 
 let tempMemory = []; 
 
@@ -13,7 +14,7 @@ $("#addnewcollection").on("click", () => {
                     properties: ["openDirectory"]
                 },  (filePath) => {
                     let gitFolder = gitFolderInfo.GitFolders(filePath[0]);
-                    tempMemory.push(gitFolder);  
+                    tempMemory = tempMemory.concat.apply(gitFolder);  
                     renderTree.renderJsTree("#tree", gitFolder);
                     renderSpinner.spinner.end("#loading"); 
                 });
@@ -24,10 +25,16 @@ $("#generate-sh").on("click", () => {
         return ele.text; 
     });
     //work in progress 
-    let x = tempMemory[0].filter((e) => {
+    let x = tempMemory.filter((e) => {
         for(let i in obj) {
-            if(obj[i] === e.file.text) return true;   
+            if(obj[i] === e.file.name) return true;   
         }
     });
-    console.log(x); 
+    electron.dialog.showOpenDialog({
+         title: "Select output location",
+                    properties: ["openDirectory"]
+                },  (filePath) => {
+                    createSh.createScript(filePath[0], x); 
+                });
+    
 })
