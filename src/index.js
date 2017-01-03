@@ -34,7 +34,7 @@ $("#generate-sh").on("click", () => {
          title: "Select output location",
                     properties: ["openDirectory"]
                 },  (filePath) => {
-                    createSh.createScript(filePath[0], x); 
+                    createSh.createScript(filePath[0], x, "gitcapsule", "This is a testing file... by Ringo"); 
                 });
     
 })
