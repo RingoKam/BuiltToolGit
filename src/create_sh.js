@@ -4,6 +4,12 @@ function Writewithbreaktag(string) {
     return string + "\n";
 };
 
+function InitializeLocalVariable(){
+    let text = "";
+    text += Writewithbreaktag(username="USER INPUT") 
+    return text; 
+}
+
 function CreateGitCapsuleLogo() {
     let text = "";
     text += Writewithbreaktag("echo '**************************************************************************************************' ");
@@ -80,12 +86,20 @@ function ParseDirectory(directory) {
     return dir; 
 }
 
+function GetUsername(){
+    let text = ""; 
+    text += Writewithbreaktag("echo")
+    text += Writewithbreaktag("read -p \"Enter your GIT username, then click enter: \" username") 
+}
+
 exports.createScript = (directory, selectedGitFolders, name, comment) => {
     let codeFile = CreateGitCapsuleLogo();
+    codeFile += InitializeLocalVariable(); 
     codeFile += CreatePullCodeFunction();
     if (comment) {
         codeFile += CreateComment(comment);
     }
+    codeFile += GetUsername(); 
     codeFile += PullCode(selectedGitFolders); 
     const fileName = directory + "\\" + name + ".sh";
     const writer = fs.createWriteStream(fileName);
