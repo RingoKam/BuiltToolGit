@@ -35,15 +35,15 @@ function CreatePullCodeFunction() {
     let text = "";
     text += Writewithbreaktag("function PullCode()");
     text += Writewithbreaktag("{")
-    text += Writewithbreaktag("local fulldir=$1"); //project location 
-    text += Writewithbreaktag("local dir=$2"); //the project folder 
+    text += Writewithbreaktag("local url=$1"); //project location 
+    text += Writewithbreaktag("local fulldir=$2"); //the project folder 
     text += Writewithbreaktag("local project=$3"); //project name 
     text += Writewithbreaktag("local sha=$4"); //sha for checkout
     text += Writewithbreaktag("if [ ! -d $fulldir ]; then");
     text += Writewithbreaktag("echo \"Git Repo Exist\"");
     text += Writewithbreaktag("else");
     text += Writewithbreaktag("echo \"Git Repo doesnt exist, will create\"");
-    text += Writewithbreaktag("git clone $username@sourcecontrol.amtrustservices.com:/gitrepos/$dir/$project.git");
+    text += Writewithbreaktag("git clone $url");
     text += Writewithbreaktag("mkdir $fulldir");
     text += Writewithbreaktag("fi");
     text += Writewithbreaktag("echo");
@@ -66,7 +66,7 @@ function PullCode(selectedGitFolders) {
     let text = "";
     for (let i in selectedGitFolders) {
         let dir = ParseDirectory(selectedGitFolders[i].file.dir); 
-        text += Writewithbreaktag("PullCode \"" + selectedGitFolders[i].file.dir + "\" " + "\"" + dir + "\" " +  "\"" + selectedGitFolders[i].file.base + "\" " + "\"" + selectedGitFolders[i].repoInfo.sha + "\"");  
+        text += Writewithbreaktag("PullCode \"$username@" +  selectedGitFolders[i].config["remote \"origin\""].url.split(":").pop + "\" " + "\"" + dir + "\" " +  "\"" + selectedGitFolders[i].file.base + "\" " + "\"" + selectedGitFolders[i].repoInfo.sha + "\"");  
     }
     return text; 
 }
@@ -74,7 +74,7 @@ function PullCode(selectedGitFolders) {
 function ParseDirectory(directory) {
     let array = directory.split("\\");
     let dir = "/";
-    for (let i = 1; i < array.length - 1; i++) {
+    for (let i = 1; i < array.length; i++) {
         dir += array[i] + "/";
     }
     return dir; 
