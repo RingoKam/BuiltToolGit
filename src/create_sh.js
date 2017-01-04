@@ -44,11 +44,11 @@ function CreatePullCodeFunction() {
     text += Writewithbreaktag("else");
     text += Writewithbreaktag("echo \"Git Repo doesnt exist, will create\"");
     text += Writewithbreaktag("git clone $url");
-    text += Writewithbreaktag("mkdir $fulldir");
+    text += Writewithbreaktag("mkdir $fulldir/$project");
     text += Writewithbreaktag("fi");
     text += Writewithbreaktag("echo");
     text += Writewithbreaktag("echo \"-- CHANGING DIRECTORY --\"");
-    text += Writewithbreaktag("cd $fulldir/$dir");
+    text += Writewithbreaktag("cd $fulldir/$project");
     text += Writewithbreaktag("echo");
     text += Writewithbreaktag("echo \"-- RESETTING --\"");
     text += Writewithbreaktag("git reset --hard");
@@ -66,7 +66,7 @@ function PullCode(selectedGitFolders) {
     let text = "";
     for (let i in selectedGitFolders) {
         let dir = ParseDirectory(selectedGitFolders[i].file.dir); 
-        text += Writewithbreaktag("PullCode \"$username@" +  selectedGitFolders[i].config["remote \"origin\""].url.split(":").pop + "\" " + "\"" + dir + "\" " +  "\"" + selectedGitFolders[i].file.base + "\" " + "\"" + selectedGitFolders[i].repoInfo.sha + "\"");  
+        text += Writewithbreaktag("PullCode \"$username@sourcecontrol.amtrustservices.com:" +  selectedGitFolders[i].config["remote \"origin\""].url.split(":").pop() + "\" " + "\"" + dir + "\" " +  "\"" + selectedGitFolders[i].file.base + "\" " + "\"" + selectedGitFolders[i].repoInfo.sha + "\"");  
     }
     return text; 
 }
