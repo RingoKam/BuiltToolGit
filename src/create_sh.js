@@ -6,7 +6,7 @@ function Writewithbreaktag(string) {
 
 function InitializeLocalVariable(){
     let text = "";
-    text += Writewithbreaktag(username="USER INPUT") 
+    text += Writewithbreaktag("username=\"USER INPUT\"") 
     return text; 
 }
 
