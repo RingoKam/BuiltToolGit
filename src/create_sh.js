@@ -4,9 +4,10 @@ function Writewithbreaktag(string) {
     return string + "\n";
 };
 
-function InitializeLocalVariable(){
+function InitializeLocalVariable(root){
     let text = "";
-    text += Writewithbreaktag("username=\"USER INPUT\"") 
+    text += Writewithbreaktag("username=\"USER INPUT\"");
+    text += Writewithbreaktag("root=\"" + root + "\""); 
     return text; 
 }
 
@@ -90,6 +91,7 @@ function GetUsername(){
     let text = ""; 
     text += Writewithbreaktag("echo")
     text += Writewithbreaktag("read -p \"Enter your GIT username, then click enter: \" username") 
+    return text;
 }
 
 exports.createScript = (directory, selectedGitFolders, name, comment) => {
