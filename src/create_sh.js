@@ -39,23 +39,27 @@ function CreateComment(comment) {
 
 //amtrust version
 function CreatePullCodeFunction() {
-    let text = "";
+    let text = ""
     text += Writewithbreaktag("function PullCode()");
     text += Writewithbreaktag("{")
     text += Writewithbreaktag("local url=$1"); //project location 
     text += Writewithbreaktag("local fulldir=$2"); //the project folder 
     text += Writewithbreaktag("local project=$3"); //project name 
     text += Writewithbreaktag("local sha=$4"); //sha for checkout
-    text += Writewithbreaktag("if [ ! -d $fulldir ]; then");
+    text += Writewithbreaktag("echo \"-------------------------------------------------------- \"");
+    text += Writewithbreaktag("if [ -d /$root/$fulldir ]; then");
     text += Writewithbreaktag("echo \"Git Repo Exist\"");
+    text += Writewithbreaktag("echo \"-- CHANGING DIRECTORY --\"");
+    text += Writewithbreaktag("echo /$root/$fulldir/$project");
+    text += Writewithbreaktag("cd /$root/$fulldir/$project");
+    text += Writewithbreaktag("echo");
     text += Writewithbreaktag("else");
     text += Writewithbreaktag("echo \"Git Repo doesnt exist, will create\"");
-    text += Writewithbreaktag("git clone $url");
-    text += Writewithbreaktag("mkdir $fulldir/$project");
-    text += Writewithbreaktag("fi");
-    text += Writewithbreaktag("echo");
+    text += Writewithbreaktag("mkdir /$root/$fulldir/$project");
     text += Writewithbreaktag("echo \"-- CHANGING DIRECTORY --\"");
-    text += Writewithbreaktag("cd $fulldir/$project");
+    text += Writewithbreaktag("cd /$root/$fulldir/$project");
+    text += Writewithbreaktag("git clone $url");
+    text += Writewithbreaktag("fi");
     text += Writewithbreaktag("echo");
     text += Writewithbreaktag("echo \"-- RESETTING --\"");
     text += Writewithbreaktag("git reset --hard");
@@ -80,11 +84,22 @@ function PullCode(selectedGitFolders) {
 
 function ParseDirectory(directory) {
     let array = directory.split("\\");
-    let dir = "/";
+    let dir = "";
     for (let i = 1; i < array.length; i++) {
-        dir += array[i] + "/";
+        dir += array[i] 
+        if(i != array.length)
+            dir += "/";
     }
     return dir; 
+}
+
+function GetProject(projects){
+    let text = Writewithbreaktag("echo \"Following Git Repository will be created/updated in your root directory\"");
+    for(let i in projects){
+        text += Writewithbreaktag("echo \"" + projects[i] + "\"");
+    }
+    text += Writewithbreaktag("read -p \"Press enter to continue...\""); 
+    return text;
 }
 
 function GetUsername(){
@@ -96,14 +111,15 @@ function GetUsername(){
 
 exports.createScript = (directory, selectedGitFolders, name, comment) => {
     let codeFile = CreateGitCapsuleLogo();
-    codeFile += InitializeLocalVariable(); 
+    //assuming root is same for now.. 
+    codeFile += InitializeLocalVariable(selectedGitFolders[0].file.root); 
     codeFile += CreatePullCodeFunction();
     if (comment) {
         codeFile += CreateComment(comment);
     }
+    codeFile += GetProject(selectedGitFolders.map((e) => {return e.file.name})); 
     codeFile += GetUsername(); 
-    //assuming root is same for now.. 
-    codeFile += PullCode(selectedGitFolders[0].file.root); 
+    codeFile += PullCode(selectedGitFolders); 
     const fileName = directory + "\\" + name + ".sh";
     const writer = fs.createWriteStream(fileName);
     writer.write(codeFile);
