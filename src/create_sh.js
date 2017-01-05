@@ -7,7 +7,7 @@ function Writewithbreaktag(string) {
 function InitializeLocalVariable(root){
     let text = "";
     text += Writewithbreaktag("username=\"USER INPUT\"");
-    text += Writewithbreaktag("root=\"" + root + "\""); 
+    text += Writewithbreaktag("root=\"" + root.replace(/\W/g, '') + "\""); 
     return text; 
 }
 
@@ -102,7 +102,8 @@ exports.createScript = (directory, selectedGitFolders, name, comment) => {
         codeFile += CreateComment(comment);
     }
     codeFile += GetUsername(); 
-    codeFile += PullCode(selectedGitFolders); 
+    //assuming root is same for now.. 
+    codeFile += PullCode(selectedGitFolders[0].file.root); 
     const fileName = directory + "\\" + name + ".sh";
     const writer = fs.createWriteStream(fileName);
     writer.write(codeFile);
