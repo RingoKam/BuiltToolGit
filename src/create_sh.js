@@ -68,7 +68,7 @@ function CreatePullCodeFunction() {
     text += Writewithbreaktag("git fetch");
     text += Writewithbreaktag("echo");
     text += Writewithbreaktag("echo \" -- CHECKING OUT BRANCH --\"");
-    text += Writewithbreaktag("git checkout $branch");
+    text += Writewithbreaktag("git checkout $sha");
     text += Writewithbreaktag("}")
     return text;
 }
@@ -123,5 +123,5 @@ exports.createScript = (directory, selectedGitFolders, name, comment) => {
     const fileName = directory + "\\" + name + ".sh";
     const writer = fs.createWriteStream(fileName);
     writer.write(codeFile);
-    writer.end("read -p \"$*\"");
+    writer.end("read -p \"Press enter to exit :)\"");
 }
