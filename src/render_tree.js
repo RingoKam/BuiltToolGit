@@ -2,6 +2,7 @@ require('jstree');
 
 let template = ({
     "core": {
+        'check_callback' : true,
         'data': [],
         "themes": {
             "variant": "large"
@@ -67,13 +68,14 @@ function treeStruct(tree, filePathObj, index, gitFolder) {
 };
 
 exports.renderJsTree = (selector, gitFolder) => {
-    let tree = [];
+    let tree = []; 
     for (let i = 0; i < gitFolder.length; i++) {
         let filePathObj = (gitFolder[i].repoInfo.root).split("\\");
         filePathObj.pop();
         treeStruct(tree, filePathObj, 0, gitFolder[i]);
     }
     template.core.data = tree;
+    $(selector).jstree("refresh");     
     $(selector).jstree(template);
 };
 

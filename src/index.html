@@ -6,7 +6,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
     <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Git Time Capsule - Timestamp Your Git Environment </title>
+    <title>Git Capsule - Timestamp Your Git Environment </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
     <!-- Bootstrap core CSS-->
@@ -39,14 +39,14 @@
             <div class="sidebar-wrapper">
                 <div class="logo">
                     <a class="simple-text">
-                    Git Time Capsule
+                    Git Capsule
                 </a>
                 </div>
                 <ul class="nav">
                     <li class="active">
                         <a href="index.html">
                             <!--<i class="space-plants"></i>-->
-                            <p>Time Capsule Collection</p>
+                            <p>Export Git Environment</p>
                         </a>
                     </li>
                 </ul>
@@ -62,7 +62,7 @@
                             <span class="icon-bar bar2"></span>
                             <span class="icon-bar bar3"></span>
                         </button>
-                        <a class="navbar-brand" href="#">Template</a>
+                        <a class="navbar-brand" href="#">Create New Bash File</a>
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
@@ -100,18 +100,62 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <input id="addnewcollection" value="Add New Collection" type="button" />
-                            </div>
-                            <div class="row">
-                                <div id="tree">
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="header">
+                                    <h4 class="title">Git Files</h4>
+                                </div>
+                                <div class="content">
+                                    <div class="row">
+                                        <div class="text-center">
+                                            <input id="addnewcollection" class="btn btn-danger btn-fill btn-wd" value="Add New Collection" type="button" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div id="tree">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <input id="generate-sh" value="Create New SH" type="button" />
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="header">
+                                    <h4 class="title">Bash file</h4>
+                                </div>
+                                <div class="content">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label> File Name </label>
+                                            <input type="text" id="fileName" class="form-control border-input" placeholder="Enter SH file name here...">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label> File Location </label>
+                                            <div class="row">
+                                                <div class="col-lg-10">
+                                                    <input type="text" id="exportLocation" class="form-control border-input" placeholder="Browse for export file location">
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <input type="button" id="browseExportLocation" class="btn" value="Browse">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label> Comment </label>
+                                            <textarea id="bashComment"" rows="5" class="form-control border-input" placeholder="Here can be your description"></textarea>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="text-center">
+                                            <input id="generate-sh" class="btn btn-danger btn-fill btn-wd" value="Create New SH" type="button" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -144,6 +188,7 @@
     require('bootstrap');
     require('./render_tree');
     require('./index.js');
+    require('./datastore.js');
     // require('jstree');
     // require('bootstrap');
 </script>
