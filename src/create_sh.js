@@ -50,9 +50,9 @@ function CreatePullCodeFunction() {
     text += Writewithbreaktag("if [ -d /$root/$fulldir ]; then");
     text += Writewithbreaktag("echo \"Git Repo Exist\"");
     text += Writewithbreaktag("echo \"-- CHANGING DIRECTORY --\"");
-    text += Writewithbreaktag("echo /$root/$fulldir/$project");
-    text += Writewithbreaktag("echo \"current working directory:\" $PWD");
     text += Writewithbreaktag("cd /$root/$fulldir/$project");
+    //text += Writewithbreaktag("echo /$root/$fulldir/$project");
+    text += Writewithbreaktag("echo \"current working directory:\" $PWD");
     text += Writewithbreaktag("echo");
     text += Writewithbreaktag("else");
     text += Writewithbreaktag("mkdir /$root/$fulldir/$project");
