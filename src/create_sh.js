@@ -87,7 +87,7 @@ function ParseDirectory(directory) {
     let dir = "";
     for (let i = 1; i < array.length; i++) {
         dir += array[i] 
-        if(i != array.length)
+        if(i != array.length - 1)
             dir += "/";
     }
     return dir; 
