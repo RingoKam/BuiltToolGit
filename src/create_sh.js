@@ -4,11 +4,11 @@ function Writewithbreaktag(string) {
     return string + "\n";
 };
 
-function InitializeLocalVariable(root){
+function InitializeLocalVariable(root) {
     let text = "";
     text += Writewithbreaktag("username=\"USER INPUT\"");
-    text += Writewithbreaktag("root=\"" + root.replace(/\W/g, '') + "\""); 
-    return text; 
+    text += Writewithbreaktag("root=\"" + root.replace(/\W/g, '') + "\"");
+    return text;
 }
 
 function CreateGitCapsuleLogo() {
@@ -78,52 +78,68 @@ function CreatePullCodeFunction() {
 function PullCode(selectedGitFolders) {
     let text = "";
     for (let i in selectedGitFolders) {
-        let dir = ParseDirectory(selectedGitFolders[i].file.dir); 
-        text += Writewithbreaktag("PullCode \"$username@sourcecontrol.amtrustservices.com:" +  selectedGitFolders[i].config["remote \"origin\""].url.split(":").pop() + "\" " + "\"" + dir + "\" " +  "\"" + selectedGitFolders[i].file.base + "\" " + "\"" + selectedGitFolders[i].repoInfo.sha + "\"");  
+        let dir = ParseDirectory(selectedGitFolders[i].file.dir);
+        text += Writewithbreaktag("PullCode \"$username@sourcecontrol.amtrustservices.com:" + selectedGitFolders[i].config["remote \"origin\""].url.split(":").pop() + "\" " + "\"" + dir + "\" " + "\"" + selectedGitFolders[i].file.base + "\" " + "\"" + selectedGitFolders[i].repoInfo.sha + "\"");
     }
-    return text; 
+    return text;
 }
 
 function ParseDirectory(directory) {
     let array = directory.split("\\");
     let dir = "";
     for (let i = 1; i < array.length; i++) {
-        dir += array[i] 
-        if(i != array.length - 1)
+        dir += array[i]
+        if (i != array.length - 1)
             dir += "/";
     }
-    return dir; 
+    return dir;
 }
 
-function GetProject(projects){
+function GetProject(projects) {
     let text = Writewithbreaktag("echo \"Following Git Repository will be created/updated in your root directory\"");
-    for(let i in projects){
+    for (let i in projects) {
         text += Writewithbreaktag("echo \"" + projects[i] + "\"");
     }
-    text += Writewithbreaktag("read -p \"Press enter to continue...\""); 
+    text += Writewithbreaktag("read -p \"Press enter to continue...\"");
     return text;
 }
 
-function GetUsername(){
-    let text = ""; 
+function GetUsername() {
+    let text = "";
     text += Writewithbreaktag("echo")
-    text += Writewithbreaktag("read -p \"Enter your GIT username, then click enter: \" username") 
+    text += Writewithbreaktag("read -p \"Enter your GIT username, then click enter: \" username")
     return text;
 }
 
 exports.createScript = (directory, selectedGitFolders, name, comment) => {
-    let codeFile = CreateGitCapsuleLogo();
-    //assuming root is same for now.. 
-    codeFile += InitializeLocalVariable(selectedGitFolders[0].file.root); 
-    codeFile += CreatePullCodeFunction();
-    if (comment) {
-        codeFile += CreateComment(comment);
+    try {
+        let codeFile = CreateGitCapsuleLogo();
+        //assuming root is same for now.. 
+        codeFile += InitializeLocalVariable(selectedGitFolders[0].file.root);
+        codeFile += CreatePullCodeFunction();
+        if (comment) {
+            codeFile += CreateComment(comment);
+        }
+        codeFile += GetProject(selectedGitFolders.map((e) => {
+            return e.file.name
+        }));
+        codeFile += GetUsername();
+        codeFile += PullCode(selectedGitFolders);
+        const fileName = directory + "\\" + name + ".sh";
+        const writer = fs.createWriteStream(fileName);
+        writer.write(codeFile);
+        writer.end("read -p \"Press enter to exit :)\"");
+        writer.on('finish', () => {
+            $.notify({
+                icon: 'glyphicon glyphicon-warning-sign',
+                title: 'File Created',
+                message: name + " created (" + directory + ")"
+            }, {
+                type: 'success'
+            })
+        });
+    } catch (error) {
+
     }
-    codeFile += GetProject(selectedGitFolders.map((e) => {return e.file.name})); 
-    codeFile += GetUsername(); 
-    codeFile += PullCode(selectedGitFolders); 
-    const fileName = directory + "\\" + name + ".sh";
-    const writer = fs.createWriteStream(fileName);
-    writer.write(codeFile);
-    writer.end("read -p \"Press enter to exit :)\"");
+
 }
