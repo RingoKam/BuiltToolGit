@@ -67,16 +67,22 @@ function treeStruct(tree, filePathObj, index, gitFolder) {
     }
 };
 
-exports.renderJsTree = (selector, gitFolder) => {
-    let tree = []; 
+function CreateTreeStruct(gitFolder) {
+    let trees = []; 
     for (let i = 0; i < gitFolder.length; i++) {
         let filePathObj = (gitFolder[i].repoInfo.root).split("\\");
         filePathObj.pop();
-        treeStruct(tree, filePathObj, 0, gitFolder[i]);
+        treeStruct(trees, filePathObj, 0, gitFolder[i]);
     }
-    template.core.data = tree;
-    $(selector).jstree("refresh");     
-    $(selector).jstree(template);
+    return trees; 
+}
+
+exports.renderJsTree = (selector, gitFolder) => {
+    $(selector).empty(); 
+    $(selector).append("<div id=\"jtree\"> </div>");
+    let trees = CreateTreeStruct(gitFolder); 
+    template.core.data = trees;
+    $("#jtree").jstree(template);    
 };
 
 exports.GetAllSelected = (selector) => {

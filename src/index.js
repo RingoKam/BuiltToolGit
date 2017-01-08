@@ -4,6 +4,7 @@ const gitFolderInfo = require('./git_folder_info');
 const renderTree = require('./render_tree');
 const renderSpinner = require('./render_spinner');
 const createSh = require('./create_sh');
+const datastore = require('./datastore'); 
 
 let tempMemory = [];
 
@@ -40,4 +41,9 @@ $("#generate-sh").on("click", () => {
         }
     });
     createSh.createScript($("#exportLocation").val() , selectedGitFiles, $("#fileName").val(), $("#bashComment").val());
+})
+
+$("#testingdb").on("click", () => {
+    datastore.insertdb(tempMemory); 
+    let obj = datastore.find()
 })

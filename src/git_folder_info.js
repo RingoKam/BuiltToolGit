@@ -32,6 +32,6 @@ function readDirectory(directory, gitFolder) {
 exports.GitFolders = (filePath) => {
     let gitFolder = [];
     readDirectory(filePath, gitFolder);
-    Folders = Folders.concat(gitFolder); 
+    Folders = Folders.concat(gitFolder);
     return Folders;
 }
