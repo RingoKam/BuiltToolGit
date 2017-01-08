@@ -1,6 +1,6 @@
 let Datastore = require('nedb'); 
 let Q = require('q');
-let db = new Datastore({ filename: '../data/datafile.db', autoload: true});
+let db = new Datastore({ filename: './data/datafile.db', autoload: true});
  
 exports.insertdb = (doc) => {
     db.insert(doc)

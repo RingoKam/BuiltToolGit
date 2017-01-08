@@ -46,4 +46,7 @@ $("#generate-sh").on("click", () => {
 $("#testingdb").on("click", () => {
     datastore.insertdb(tempMemory); 
     let obj = datastore.find()
+    obj.then((data) => {
+        console.log(data); 
+    })
 })

@@ -131,7 +131,7 @@ exports.createScript = (directory, selectedGitFolders, name, comment) => {
         writer.end("read -p \"Press enter to exit :)\"");
         writer.on('finish', () => {
             $.notify({
-                icon: 'glyphicon glyphicon-warning-sign',
+                icon: 'glyphicon icon-062',
                 title: 'File Created',
                 message: name + " created (" + directory + ")"
             }, {
@@ -139,7 +139,12 @@ exports.createScript = (directory, selectedGitFolders, name, comment) => {
             })
         });
     } catch (error) {
-
+        $.notify({
+            icon: 'glyphicon glyphicon-warning-sign',
+            title: 'Error!',
+            message: "Error! Please report error on GitHub. " + error
+        }, {
+            type: 'warning'
+        })
     }
-
 }
