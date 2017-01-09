@@ -51,7 +51,7 @@ $("#generate-sh").on("click", () => {
     datastore.insertdb({
         "Created": moment().format("MMM Do YY h:mm:ss a"),
         "SelectedFiles": selectedGitFiles, 
-        "Comment": bashComment, 
+        "Comment": comment, 
         "FileName": fileName,
         "ExportLocation": exportLocation  
     }); 
