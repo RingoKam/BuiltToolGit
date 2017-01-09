@@ -48,20 +48,11 @@ function CreatePullCodeFunction() {
     text += Writewithbreaktag("local project=$3"); //project name 
     text += Writewithbreaktag("local sha=$4"); //sha for checkout
     text += Writewithbreaktag("echo -- $project \"-------------------------------------------------------- \"");
-    text += Writewithbreaktag("if [ -d /$root/$fulldir ]; then");
-    text += Writewithbreaktag("echo \"Git Repo Exist\"");
-    text += Writewithbreaktag("echo \"-- CHANGING DIRECTORY --\"");
-    text += Writewithbreaktag("echo /$root/$fulldir/$project");
-    text += Writewithbreaktag("echo \"current working directory:\" $PWD");
-    text += Writewithbreaktag("cd /$root/$fulldir/$project");
-    text += Writewithbreaktag("echo");
-    text += Writewithbreaktag("else");
-    text += Writewithbreaktag("mkdir /$root/$fulldir/$project");
+    text += Writewithbreaktag("mkdir -p /$root/$fulldir/$project");
     text += Writewithbreaktag("echo \"-- CHANGING DIRECTORY --\"");
     text += Writewithbreaktag("cd /$root/$fulldir/$project");
     text += Writewithbreaktag("echo \"current working directory:\" $PWD");
     text += Writewithbreaktag("git clone $url");
-    text += Writewithbreaktag("fi");
     text += Writewithbreaktag("echo");
     text += Writewithbreaktag("echo \"-- RESETTING --\"");
     text += Writewithbreaktag("git reset --hard");
