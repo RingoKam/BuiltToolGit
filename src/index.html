@@ -44,13 +44,13 @@
                 </div>
                 <ul class="nav">
                     <li class="active">
-                        <a href="index.html">
+                        <a class="nav" id="bash">
                             <!--<i class="space-plants"></i>-->
                             <p>Export Git Environment</p>
                         </a>
                     </li>
                     <li>
-                        <a href="collection.html">
+                        <a class="nav" id="collection">
                             <p>Capsule Collection</p>
                         </a>
                     </li>
@@ -103,8 +103,8 @@
                 </div>
             </nav>
             <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
+                <div id="main" class="container-fluid">
+                    <!--<div class="row">
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="header">
@@ -139,11 +139,11 @@
                                         <div class="col-md-12">
                                             <label> File Location </label>
                                             <div class="row">
-                                                <div class="col-md-8">
+                                                <div class="col-md-9">
                                                     <input type="text" id="exportLocation" class="form-control border-input" disabled="true" placeholder="Browse for export file location">
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <input type="button" id="browseExportLocation" class="btn" value="Browse">
+                                                <div class="col-md-3">
+                                                    <input type="button" id="browseExportLocation" class="btn" value="...">
                                                 </div>
                                             </div>
                                         </div>
@@ -151,19 +151,19 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <label> Comment </label>
-                                            <textarea id="bashComment" rows="5" class="form-control border-input" placeholder="Here can be your description"/></textarea>
+                                            <textarea id="bashComment" rows="5" class="form-control border-input" placeholder="Here can be your description" /></textarea>
                                         </div>
                                     </div>
                                     <br>
                                     <div class="row">
                                         <div class="text-center">
-                                            <input id="generate-sh" class="btn btn-danger btn-fill btn-wd" value="Create New SH" type="button"/>
+                                            <input id="generate-sh" class="btn btn-danger btn-fill btn-wd" value="Create New SH" type="button" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <footer class="footer ">
@@ -193,6 +193,21 @@
     require('bootstrap');
     require('./render_tree');
     require('./index.js');
+    var app = require("./app");
+
+    app.on("rendered", function (rendered) {
+        $("#main").html(rendered);
+    });
+    var showContent = function (view) {
+        app.emit("view-selected", view);
+    }
+    $(function () {
+        showContent("bash");
+        $(".nav").on("click", function (ev) {
+            ev.preventDefault();
+            showContent(this.id);
+        });
+    });
     // require('jstree');
     // require('bootstrap');
 </script>
