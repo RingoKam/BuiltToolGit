@@ -134,7 +134,7 @@ exports.createScript = (directory, selectedGitFolders, name, comment) => {
         $.notify({
             icon: 'glyphicon glyphicon-warning-sign',
             title: 'Error!',
-            message: "Error! Please report error on GitHub. " + error
+            message: "Error! Please report error on GitHub." + error
         }, {
             type: 'warning'
         })
