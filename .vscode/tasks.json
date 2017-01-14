@@ -1,0 +1,9 @@
+{
+    "version": "0.1.0",
+    "args": [],
+    "command": "npm built",
+    "tasks": [{
+        "taskName": "build"
+    }]
+
+}

@@ -1,7 +1,7 @@
 //The process that runs package.json’s main script is called the main process. 
 //The script that runs in the main process can display a GUI by creating web pages.
 const electron = require('electron');
-const gitFolderInfo = require('./git_folder_info');
+// const gitFolderInfo = require('./git_folder_info');
 
 electron.app.on('ready', () => {
     let mainWindow = new electron.BrowserWindow({
@@ -9,8 +9,8 @@ electron.app.on('ready', () => {
         width: 1200
     })
 
-    mainWindow.loadURL('file://' + __dirname + '/index.html');
-
+    mainWindow.loadURL('file://' + __dirname + '/app/home.html');
+    
     // menuTemplate = [{
     //     label: "File",
     //     submenu: [{

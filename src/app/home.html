@@ -1,0 +1,41 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>GIT CAPSULE</title>
+    <!--<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,700'>-->
+    <!--<link rel="stylesheet" href="./assets/app.css" />-->
+</head>
+
+<body ng-cloak ng-app="home" layout='column'>
+    <md-toolbar layout='row' class='md-toolbar-tools'>
+        <h1>GIT CAPSULE</h1>
+    </md-toolbar>
+    <div flex layout="row">
+        <md-sidenav md-is-locked-open="true" class="md-whiteframe-4dp">
+            <md-tabs md-stretch-tabs="always" class="md-accent">
+                <md-tab layout-fill id="tab1">
+                    <md-tab-label>Item One</md-tab-label>
+                    <md-tab-body>
+                        <div>tab 1 content here</div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab layout-fill id="tab2">
+                    <md-tab-label>Item Two</md-tab-label>
+                    <md-tab-body>
+                        <div>tab 2 content here...</div>
+                    </md-tab-body>
+                </md-tab>
+            </md-tabs>
+        </md-sidenav>
+        <md-content>
+            <ui-view></ui-view>
+        </md-content>
+    </div>
+    <script type="text/javascript" src="../../build/js/bundle.js"></script>
+</body>
+
+</html>
