@@ -1,7 +1,7 @@
 {
     "version": "0.1.0",
     "args": [],
-    "command": "npm built",
+    "command": "npm build",
     "tasks": [{
         "taskName": "build"
     }]

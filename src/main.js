@@ -9,8 +9,8 @@ electron.app.on('ready', () => {
         width: 1200
     })
 
-    mainWindow.loadURL('file://' + __dirname + '/app/home.html');
-    
+    mainWindow.loadURL('file://' + __dirname + '/app/index.html');
+
     // menuTemplate = [{
     //     label: "File",
     //     submenu: [{

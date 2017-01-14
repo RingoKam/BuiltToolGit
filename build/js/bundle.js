@@ -86,7 +86,7 @@
 
 	// Icons
 	// Import angular
-	var home = exports.home = angular.module('home', [_angularMaterial2.default, _angularAnimate2.default, _angularUiRouter2.default]);
+	var home = exports.home = angular.module('app', [_angularMaterial2.default, _angularAnimate2.default, _angularUiRouter2.default]);
 	// Router
 
 	// Animation
