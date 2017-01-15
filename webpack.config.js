@@ -5,7 +5,7 @@ module.exports = {
     //context is base directory(aka absolute path) for resolving entry
     context: path.resolve('src'),
     //entry point, files that has all hook 
-    entry: ['./app/app'],
+    entry: ['./app/app-module'],
     //bundle file output location
     output: {
         path: path.resolve('build/js/'),

@@ -53,11 +53,6 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.home = undefined;
-
 	__webpack_require__(2);
 
 	__webpack_require__(4);
@@ -76,7 +71,27 @@
 
 	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
 
+	var _directoryComponent = __webpack_require__(23);
+
+	var _directoryComponent2 = _interopRequireDefault(_directoryComponent);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// angular
+	//     .module('app', [
+	//         angularMaterial,
+	//         angularAnimate,
+	//         angularUIRouter
+	//     ])
+
+	// Router
+
+	// Animation
+
+	// Material design css
+	angular.module('app', ['ngMaterial']).component("directory", _directoryComponent2.default);
+
+	// home.config();
 
 	// Our modules
 	// import home from './home/home.module';
@@ -86,19 +101,6 @@
 
 	// Icons
 	// Import angular
-	var home = exports.home = angular.module('app', [_angularMaterial2.default, _angularAnimate2.default, _angularUiRouter2.default]);
-	// Router
-
-	// Animation
-
-	// Material design css
-
-
-	home.controller('HomeController', function () {
-	    var model = undefined;
-	});
-
-	// home.config();
 
 /***/ },
 /* 2 */
@@ -75689,6 +75691,19 @@
 	  .filter('isState', $IsStateFilter)
 	  .filter('includedByState', $IncludedByStateFilter);
 	})(window, window.angular);
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = {
+	    template: '<h1> Directory component is working! </h1>'
+	};
 
 /***/ }
 /******/ ]);

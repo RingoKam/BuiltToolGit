@@ -14,14 +14,19 @@ import angularUIRouter from 'angular-ui-router';
 // import home from './home/home.module';
 // import sidenav from './sidenav/sidenav.module';
 
-export const home = angular.module('app', [
-    angularMaterial,
-    angularAnimate,
-    angularUIRouter
-]); 
+import directory from './directory/directory-component';
 
-home.controller('HomeController', () => {
-    let model = this; 
-});
+// angular
+//     .module('app', [
+//         angularMaterial,
+//         angularAnimate,
+//         angularUIRouter
+//     ])
+
+angular
+    .module('app', [
+        'ngMaterial',
+    ])
+    .component("directory", directory);
 
 // home.config();
