@@ -15,7 +15,7 @@ import angularUIRouter from 'angular-ui-router';
 // import sidenav from './sidenav/sidenav.module';
 
 import directory from './directory/directory-component';
-
+import directoryController from './directory/directory-controller'; 
 // angular
 //     .module('app', [
 //         angularMaterial,
@@ -27,6 +27,6 @@ angular
     .module('app', [
         'ngMaterial',
     ])
-    .component("directory", directory);
-
+    .component("directory", directory)
+    .controller("directoryController", directoryController)
 // home.config();

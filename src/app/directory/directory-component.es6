@@ -1,3 +1,7 @@
+import controller from "./directory-controller"
+
 export default {
-    template: '<h1> Directory component is working! </h1>'
+    template: require("./directory.html"),
+    controller: "directoryController",
+    controllerAs: "model"
 }

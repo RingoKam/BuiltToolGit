@@ -35,6 +35,7 @@ module.exports = {
             loader: 'file?name=fonts/[name].[ext]'
         }]
     },
+    target: 'electron',
     resolve: {
         //array of file extensions that will be included to be process in module
         extensions: ['', '.js', '.es6']
