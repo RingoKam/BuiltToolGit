@@ -1,5 +1,4 @@
 const electron = require('electron').remote;
-const config = require('electron-config');
 const gitFolderInfo = require('./git_folder_info');
 const renderTree = require('./render_tree');
 const renderSpinner = require('./render_spinner');
