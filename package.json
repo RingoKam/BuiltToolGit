@@ -18,10 +18,12 @@
   },
   "homepage": "https://github.com/RingoKam/BuiltToolGit",
   "devDependencies": {
-    "electron": "^1.4.12"
+    "electron": "^1.4.12",
+    "electron-packager": "^8.5.0"
   },
   "dependencies": {
     "electron-prebuilt": "^1.4.13",
+    "git-repo-info": "^1.4.0",
     "moment": "^2.17.1",
     "nedb": "^1.8.0",
     "parse-git-config": "^1.1.1",
