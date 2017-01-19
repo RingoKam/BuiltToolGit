@@ -30,7 +30,7 @@ module.exports = {
         }, {
             test: /\.(png|jpg|ttf|eot)$/,
             exclude: /node_modules/,
-            loader: 'url-loader'
+            loader: 'url-loader?limit=10000'
         }, {
             test: [/fontawesome-webfont\.svg/, /fontawesome-webfont\.eot/, /fontawesome-webfont\.ttf/, /fontawesome-webfont\.woff/, /fontawesome-webfont\.woff2/],
             loader: 'file?name=fonts/[name].[ext]'

@@ -1,6 +1,6 @@
 require('jquery');
 require('jstree');
-require('../Assets/card.css')
+require('../Assets/css/card.css');
 
 import 'angular';
 import 'angular-material/angular-material.css';
@@ -15,9 +15,15 @@ import directoryController from './directory/directory-controller';
 
 angular
     .module('app', [
-        'ngMaterial',
-        'ngtree'
+        'ngMaterial'
     ])
+    .config(function ($mdThemingProvider) {
+        $mdThemingProvider.theme('default')
+            .primaryPalette('blue', {
+                'default': '900'
+            })
+            .accentPalette('green');
+    })
     .component("directory", directory)
     .controller("directoryController", directoryController)
 // home.config();
