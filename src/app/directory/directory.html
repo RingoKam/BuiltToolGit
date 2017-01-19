@@ -1,11 +1,83 @@
-<md-card layout="column">
-    <md-card-title>
-        <md-card-title-text>Select Git Repos</md-card-title-text>
-    </md-card-title>
-    <md-card-content>
-        <md-card-actions layout="row" layout-align="center">
-            <md-button class="md-primary md-raised" ng-click="model.OpenDirectory()"> (+) Add File Directory </md-button>
-        </md-card-actions>
-        <div ngtree></div> 
-    </md-card-content>
-</md-card>
+<div layout-fill layout="row" layout-wrap>
+    <md-content flex="50">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-display-1"> Select Git Repos </span>
+                </md-card-title-text>
+                <md-button class="md-fab" ng-click="model.OpenDirectory()">
+                    <span class="md-subhead"> Add </span>
+                </md-button>
+            </md-card-title>
+            <md-card-content>
+                <md-list>
+                    <md-list-item ng-repeat="gitFolder in model.gitFolders" class="md-3-line md-primary">
+                        <div class="md-list-item-text" layout="column">
+                            <md-checkbox ng-clicked="model.SelectedGitFolders.push(gitFolder)">
+                                <h3 style="word-wrap: break-word"> <span style="font-weight:bold"> {{ gitFolder.file.name }} </span> {{ gitFolder.repoInfo.branch
+                                    }}
+                                </h3>
+                                <h4 style="word-wrap: break-word"> {{ gitFolder.repoInfo.root }} </h4>
+                                <p style="word-wrap: break-word"> <span style="font-style: italic"> {{ gitFolder.repoInfo.authorDate | date : format }} </span>                                    {{ gitFolder.repoInfo.commitMessage }} </p>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </md-card-content>
+        </md-card>
+    </md-content>
+    <md-content flex>
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-display-1"> Export Bash Script </span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <md-input-container class="md-block">
+                    <label>File Name</label>
+                    <input ng-model="user.title">
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label> File Location </label>
+                    <input type="text" disabled="true" placeholder="Browse for export file location">
+                </md-input-container>
+                <!--<md-input-container>
+                    <md-button class="md-primary md-hue-1">Browse</md-button>
+                </md-input-container>-->
+                <md-input-container class="md-block">
+                    <label>Comment</label>
+                    <textarea ng-model="user.biography" md-maxlength="500" rows="5" md-select-on-focus></textarea>
+                </md-input-container>
+                <md-card-actions layout="row" layout-align="center">
+                    <md-button class="md-primary md-raised" ng-click=""> Save </md-button>
+                    <md-button class="md-primary md-raised" ng-click=""> Export </md-button>
+                </md-card-actions>
+            </md-card-content>
+        </md-card>
+    </md-content>
+    <!--<md-content flex="50"> 
+    <div class="card" >
+        <h1>Ringo</h1>
+         <md-button class="md-fab" ng-click="model.OpenDirectory()">
+                <span class="md-subhead"> Add </span>
+            </md-button>
+          <md-list>
+                <md-list-item ng-repeat="gitFolder in model.gitFolders" class="md-3-line md-primary">
+                    <div class="md-list-item-text" layout="column">
+                        <md-checkbox ng-clicked="model.SelectedGitFolders.push(gitFolder)">
+                            <h3 style="word-wrap: break-word"> <span style="font-weight:bold"> {{ gitFolder.file.name }} </span> {{ gitFolder.repoInfo.branch
+                                }}
+                            </h3>
+                            <h4 style="word-wrap: break-word"> {{ gitFolder.repoInfo.root }} </h4>
+                            <p style="word-wrap: break-word"> <span style="font-style: italic"> {{ gitFolder.repoInfo.authorDate | date : format }} </span>                                {{ gitFolder.repoInfo.commitMessage }} </p>
+                    </div>
+                </md-list-item>
+            </md-list>
+    </div>
+    </md-content>
+    <md-content>
+    <div class="card" flex>
+        
+    </div>
+    <md-content> -->
+</div>

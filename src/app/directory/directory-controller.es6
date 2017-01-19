@@ -4,21 +4,20 @@ let createJsTreeObj = require('../services/create_jstree_obj');
 
 export default class directoryController {
     constructor() {
-        this.tempMemory = [];
-        this.jstreeObj = [];
+        this.gitFolders = [];
     }
     $onInit() {
-        this.OpenDirectory = () => {
-            electron.dialog.showOpenDialog({
-                title: "Select a folder",
-                properties: ["openDirectory"]
-            }, (filePath) => {
-                let gitFolder = gitFolderInfo.GitFolders(filePath[0]);
-                this.tempMemory = this.tempMemory.concat.apply(gitFolder);
-                this.jstreeObj = createJsTreeObj.Create(this.tempMemory); 
-                // renderTree.renderJsTree("#tree", gitFolder);
-                // renderSpinner.spinner.end("#loading");
-            });
-        }
+        if(!this.SelectedGitFolders) this.SelectedGitFolders = [];
+    }
+    OpenDirectory() {
+        electron.dialog.showOpenDialog({
+            title: "Select a folder",
+            properties: ["openDirectory"]
+        }, (filePath) => {
+            let gitFolder = gitFolderInfo.GitFolders(filePath[0]);
+            this.gitFolders = this.gitFolders.concat.apply(gitFolder);
+            // renderTree.renderJsTree("#tree", gitFolder);
+            // renderSpinner.spinner.end("#loading");
+        });
     }
 }

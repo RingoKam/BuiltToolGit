@@ -26,7 +26,7 @@ $("#browseExportLocation").on("click", () => {
     electron.dialog.showOpenDialog({
         title: "Select output location",
         properties: ["openDirectory"]
-    }, (filePath) => {
+    }, (filePath) => {``
         $("#exportLocation").val(filePath);
     })
 })

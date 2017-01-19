@@ -14,6 +14,7 @@ module.exports = {
     devServer: {
         contentBase: 'public'
     },
+    watch: true,
     module: {
         loaders: [{
             test: /\.es6$/,

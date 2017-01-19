@@ -1,5 +1,6 @@
 require('jquery');
 require('jstree');
+require('../Assets/card.css')
 
 import 'angular';
 import 'angular-material/angular-material.css';
