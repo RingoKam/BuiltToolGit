@@ -1,29 +1,48 @@
 require('jquery');
 require('jstree');
 require('../Assets/css/card.css');
+// require('../Assets/css/');
 
 import 'angular';
 import 'angular-material/angular-material.css';
 import 'font-awesome/css/font-awesome.css';
+import uiRouter from "angular-ui-router";
 import angularAnimate from 'angular-animate';
 import angularMaterial from 'angular-material';
-import angularUIRouter from 'angular-ui-router';
-import angularJstree from './directive/jstree-directive';
-
 import directory from './directory/directory-component';
 import directoryController from './directory/directory-controller';
 
+debugger;
+
 angular
     .module('app', [
-        'ngMaterial'
+        angularMaterial,
+        uiRouter
     ])
-    .config(function ($mdThemingProvider) {
+    .config(['$mdThemingProvider', '$stateProvider', function ($mdThemingProvider, $stateProvider) {
+        
         $mdThemingProvider.theme('default')
-            .primaryPalette('blue', {
-                'default': '900'
+            .primaryPalette('indigo', {
+                'default': 'A700'
             })
-            .accentPalette('green');
-    })
+            .accentPalette('cyan',{
+                'default': 'A400'
+            });
+
+        $stateProvider
+            .state("directory", {
+                url: '/:CapsuleId',
+                component: 'directory',
+                params: {
+                    CapsuleId: ""
+                },  
+                Resolve: {
+
+                }
+            });
+        
+        // $urlRouteProvider.otherwise("/directory")
+    }])
     .component("directory", directory)
     .controller("directoryController", directoryController)
 // home.config();

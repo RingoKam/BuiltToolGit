@@ -7,6 +7,7 @@ const createSh = require('./create_sh');
 const datastore = require('./datastore'); 
 const moment = require('moment'); 
 
+
 let tempMemory = [];
 
 $("#addnewcollection").on("click", () => {
@@ -26,7 +27,7 @@ $("#browseExportLocation").on("click", () => {
     electron.dialog.showOpenDialog({
         title: "Select output location",
         properties: ["openDirectory"]
-    }, (filePath) => {``
+    }, (filePath) => {
         $("#exportLocation").val(filePath);
     })
 })

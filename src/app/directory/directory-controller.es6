@@ -7,7 +7,7 @@ export default class directoryController {
         this.gitFolders = [];
     }
     $onInit() {
-        if(!this.SelectedGitFolders) this.SelectedGitFolders = [];
+        if (!this.SelectedGitFolders) this.SelectedGitFolders = [];
     }
     OpenDirectory() {
         electron.dialog.showOpenDialog({
@@ -20,4 +20,14 @@ export default class directoryController {
             // renderSpinner.spinner.end("#loading");
         });
     }
+
+    SaveScriptLocation() {
+        electron.dialog.showOpenDialog({
+            title: "Select output location",
+            properties: ["openDirectory"]
+        }, (filePath) => {
+            this.outputLocation = filePath;
+        })
+    }
+
 }

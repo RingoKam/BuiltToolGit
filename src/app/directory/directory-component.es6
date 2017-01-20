@@ -2,8 +2,8 @@ import controller from "./directory-controller"
 
 export default {
     binding: {
-        SelectedGitFolders: "<",
-        ChangeSelectedGitFolders: "&"
+        SelectedGitFolders: "<"
+        // ChangeSelectedGitFolders: "&"
     },
     template: require("./directory.html"),
     controller: "directoryController",

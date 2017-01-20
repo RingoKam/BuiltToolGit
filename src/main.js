@@ -5,7 +5,7 @@ const electron = require('electron');
 
 electron.app.on('ready', () => {
     let mainWindow = new electron.BrowserWindow({
-        height: 600,
+        height: 650,
         width: 1200
     })
 
