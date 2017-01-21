@@ -43,12 +43,17 @@ function CreatePullCodeFunction() {
     let text = ""
     text += Writewithbreaktag("function PullCode()");
     text += Writewithbreaktag("{")
-    text += Writewithbreaktag("local url=$1"); //project location 
+    text += Writewithbreaktag("local url=$1"); //project git location 
     text += Writewithbreaktag("local fulldir=$2"); //the project folder 
     text += Writewithbreaktag("local project=$3"); //project name 
     text += Writewithbreaktag("local sha=$4"); //sha for checkout
     text += Writewithbreaktag("echo -- $project \"-------------------------------------------------------- \"");
-    text += Writewithbreaktag("mkdir -p /$root/$fulldir/$project");
+    text += Writewithbreaktag("if [ ! -d /$root/$fulldir/$project]; then");
+    text += Writewithbreaktag("mkdir -p /$root/$fulldir/");
+    text += Writewithbreaktag("echo \"-- CHANGING DIRECTORY --\"");
+    text += Writewithbreaktag("cd /$root/$fulldir/");
+    text += Writewithbreaktag("git clone $url");
+    text += Writewithbreaktag("fi");
     text += Writewithbreaktag("echo \"-- CHANGING DIRECTORY --\"");
     text += Writewithbreaktag("cd /$root/$fulldir/$project");
     text += Writewithbreaktag("echo \"current working directory:\" $PWD");

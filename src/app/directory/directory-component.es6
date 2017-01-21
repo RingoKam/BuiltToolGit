@@ -1,11 +1,22 @@
-import controller from "./directory-controller"
-
 export default {
     binding: {
-        SelectedGitFolders: "<"
-        // ChangeSelectedGitFolders: "&"
+        CapsuleId: "<"
     },
     template: require("./directory.html"),
-    controller: "directoryController",
+    controller: directoryController,
     controllerAs: "model"
+}
+
+directoryController.$inject = []; 
+
+function directoryController() {
+    var model = this;
+
+    model.$onInit = function() {{
+        model.selectedGitFolders = ["q23"]; 
+    }}
+
+    model.updateGitFolders = (folders) => {
+        model.selectedGitFolders = folders; 
+    } 
 }

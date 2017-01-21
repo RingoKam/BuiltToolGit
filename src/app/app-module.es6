@@ -3,16 +3,17 @@ require('jstree');
 require('../Assets/css/card.css');
 // require('../Assets/css/');
 
-import 'angular';
+import angular from 'angular';
 import 'angular-material/angular-material.css';
 import 'font-awesome/css/font-awesome.css';
 import uiRouter from "angular-ui-router";
 import angularAnimate from 'angular-animate';
 import angularMaterial from 'angular-material';
 import directory from './directory/directory-component';
-import directoryController from './directory/directory-controller';
-
-debugger;
+import directoryState from './directory/directory-state'; 
+import capsule from './capsule/capsule.component';
+import createCapsule from './CreateCapsule/create-capsule.component';
+import createSh from './CreateSh/create-sh.component';
 
 angular
     .module('app', [
@@ -30,19 +31,11 @@ angular
             });
 
         $stateProvider
-            .state("directory", {
-                url: '/:CapsuleId',
-                component: 'directory',
-                params: {
-                    CapsuleId: ""
-                },  
-                Resolve: {
+            .state("directory", directoryState);
 
-                }
-            });
-        
-        // $urlRouteProvider.otherwise("/directory")
     }])
     .component("directory", directory)
-    .controller("directoryController", directoryController)
+    .component("capsule", capsule)
+    .component("createCapsule", createCapsule)
+    .component("createSh", createSh)
 // home.config();

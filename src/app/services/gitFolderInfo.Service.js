@@ -6,6 +6,5 @@ export class gitFolderInfo {
     }
 
     GetGitFolders() {
-        
     }
 }

@@ -1,0 +1,37 @@
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-display-1"> Export Bash Script </span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <div>
+            here goes the json {{model.gitFolders | json}}
+        </div>
+        <md-input-container class="md-block">
+            <label>Git Capsule</label>
+            <md-select ng-model="ctrl.userState">
+                <md-option><em>None</em></md-option>
+                <!--<md-option ng-repeat="" ng-value="state.abbrev" ng-disabled="$index === 1">
+                                {{state.abbrev}}
+                            </md-option>-->
+            </md-select>
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>File Name</label>
+            <input ng-model="user.title">
+        </md-input-container>
+        <md-input-container class="md-block" ng-click="model.SaveScriptLocation()">
+            <label> File Location </label>
+            <input type="text" ng-model="model.outputLocation" disabled="true" flex placeholder="export location">
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>Comment</label>
+            <textarea ng-model="user.biography" md-maxlength="500" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+        <md-card-actions layout="row" layout-align="center">
+            <md-button class="md-primary md-raised" ng-click=""> Save </md-button>
+            <md-button class="md-primary md-raised" ng-click=""> Export </md-button>
+        </md-card-actions>
+    </md-card-content>
+</md-card>
