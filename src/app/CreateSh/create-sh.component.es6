@@ -40,7 +40,8 @@ function createShController() {
         writer.end("read -p \"Press enter to exit :)\"");
         writer.on('finish', () => {
             notifier.notify('Success', {
-                 message: `${model.name} created in ${model.outputLocation}`
+                 message: `${model.name} created in ${model.outputLocation}`,
+                 duration: 10000
             })
         });
     }

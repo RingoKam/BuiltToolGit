@@ -47,7 +47,7 @@ function CreatePullCodeFunction() {
     text += Writewithbreaktag("local project=$3"); //project name 
     text += Writewithbreaktag("local sha=$4"); //sha for checkout
     text += Writewithbreaktag("echo -- $project \"-------------------------------------------------------- \"");
-    text += Writewithbreaktag("if [ ! -d /$root/$fulldir/$project]; then");
+    text += Writewithbreaktag("if [ ! -d /$root/$fulldir/$project ]; then");
     text += Writewithbreaktag("mkdir -p /$root/$fulldir/");
     text += Writewithbreaktag("echo \"-- CHANGING DIRECTORY --\"");
     text += Writewithbreaktag("cd /$root/$fulldir/");

@@ -2,7 +2,6 @@
     <md-content flex="50">
         <create-capsule selected-git-folders="model.selectedGitFolders" on-git-folders-change="model.updateGitFolders(folders)">
         </create-capsule>
-        <p> capsule goes here {{ model.selectedGitFolders | json }}</p>
     </md-content>
     <md-content flex>
         <create-sh git-folders="model.selectedGitFolders">

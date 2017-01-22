@@ -5,33 +5,35 @@
         </md-card-title-text>
     </md-card-title>
     <md-card-content>
-        <md-input-container class="md-block">
-            <label>Git Capsule</label>
-            <md-select ng-model="ctrl.userState">
-                <md-option><em>None</em></md-option>
-                <!--<md-option ng-repeat="" ng-value="state.abbrev" ng-disabled="$index === 1">
+        <form name="shform">
+            <md-input-container class="md-block">
+                <label>Git Capsule</label>
+                <md-select ng-model="ctrl.userState">
+                    <md-option><em>None</em></md-option>
+                    <!--<md-option ng-repeat="" ng-value="state.abbrev" ng-disabled="$index === 1">
                                 {{state.abbrev}}
                             </md-option>-->
-            </md-select>
-        </md-input-container>
-        <md-input-container class="md-block">
-            <label>File Name</label>
-            <input ng-model="model.name">
-        </md-input-container>
-        <md-input-container class="md-block" ng-click="model.SaveScriptLocation()">
-            <label> File Location </label>
-            <input type="text" ng-model="model.outputLocation" disabled="true" flex placeholder="export location">
-        </md-input-container>
-        <md-input-container class="md-block">
-            <label>Comment</label>
-            <textarea ng-model="model.comment" md-maxlength="500" rows="5" md-select-on-focus></textarea>
-        </md-input-container>
-        <md-chips ng-show="model.gitFolders > 0"> 
-            <md-chip ng-repeat="git in model.gitFolders"> {{ git.file.name }}</md-chip> 
-        </md-chips>
-        <md-card-actions layout="row" layout-align="center">
-            <md-button class="md-primary md-raised" ng-click=""> Save </md-button>
-            <md-button class="md-primary md-raised" ng-click="model.exportSh()"> Export </md-button>
-        </md-card-actions>
+                </md-select>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>File Name</label>
+                <input ng-model="model.name" required>
+            </md-input-container>
+            <md-input-container class="md-block" ng-click="model.SaveScriptLocation()">
+                <label> File Location </label>
+                <input type="text" ng-model="model.outputLocation" disabled="true" flex placeholder="export location" required>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Comment</label>
+                <textarea ng-model="model.comment" md-maxlength="500" rows="5" md-select-on-focus></textarea>
+            </md-input-container>
+            <md-chips ng-show="model.gitFolders.length > 0">
+                <md-chip ng-repeat="git in model.gitFolders"> {{ git.file.name }}</md-chip>
+            </md-chips>
+            <md-card-actions layout="row" layout-align="center">
+                <!--<md-button class="md-primary md-raised" ng-click=""> Save </md-button>-->
+                <md-button class="md-primary md-raised" ng-click="model.exportSh()"> Export </md-button>
+            </md-card-actions>
+        </form>
     </md-card-content>
 </md-card>
