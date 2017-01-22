@@ -1,4 +1,3 @@
-const fs = require('fs');
 const Q = require('q');
 
 function Writewithbreaktag(string) {
@@ -74,7 +73,7 @@ function CreatePullCodeFunction() {
 
 function PullCode(selectedGitFolders) {
     let text = "";
-    for (let i in selectedGitFolders) {
+    for (let i = 0; i < selectedGitFolders.length; i++) {
         let dir = ParseDirectory(selectedGitFolders[i].file.dir);
         text += Writewithbreaktag("PullCode \"$username@sourcecontrol.amtrustservices.com:" + selectedGitFolders[i].config["remote \"origin\""].url.split(":").pop() + "\" " + "\"" + dir + "\" " + "\"" + selectedGitFolders[i].file.base + "\" " + "\"" + selectedGitFolders[i].repoInfo.sha + "\"");
     }
@@ -109,39 +108,21 @@ function GetUsername() {
 }
 
 exports.createScript = (directory, selectedGitFolders, name, comment) => {
-    try {
-        let codeFile = CreateGitCapsuleLogo();
-        //assuming root is same for now.. 
-        codeFile += InitializeLocalVariable(selectedGitFolders[0].file.root);
-        codeFile += CreatePullCodeFunction();
-        if (comment) {
-            codeFile += CreateComment(comment);
-        }
-        codeFile += GetProject(selectedGitFolders.map((e) => {
-            return e.file.name
-        }));
-        codeFile += GetUsername();
-        codeFile += PullCode(selectedGitFolders);
-        const fileName = directory + "\\" + name + ".sh";
-        const writer = fs.createWriteStream(fileName);
-        writer.write(codeFile);
-        writer.end("read -p \"Press enter to exit :)\"");
-        writer.on('finish', () => {
-            $.notify({
-                icon: 'glyphicon icon-062',
-                title: 'File Created',
-                message: name + " created (" + directory + ")"
-            }, {
-                type: 'success'
-            })
-        });
-    } catch (error) {
-        $.notify({
-            icon: 'glyphicon glyphicon-warning-sign',
-            title: 'Error!',
-            message: "Error! Please report error on GitHub." + error
-        }, {
-            type: 'warning'
-        })
+    let codeFile = CreateGitCapsuleLogo();
+    //assuming root is same for now.. 
+    codeFile += InitializeLocalVariable(selectedGitFolders[0].file.root);
+    codeFile += CreatePullCodeFunction();
+    if (comment) {
+        codeFile += CreateComment(comment);
+    }
+    codeFile += GetProject(selectedGitFolders.map((e) => {
+        return e.file.name
+    }));
+    codeFile += GetUsername();
+    codeFile += PullCode(selectedGitFolders);
+    const fileName = directory + "\\" + name + ".sh";
+    return {
+        fileName,
+        codeFile
     }
 }

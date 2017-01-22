@@ -5,9 +5,6 @@
         </md-card-title-text>
     </md-card-title>
     <md-card-content>
-        <div>
-            here goes the json {{model.gitFolders | json}}
-        </div>
         <md-input-container class="md-block">
             <label>Git Capsule</label>
             <md-select ng-model="ctrl.userState">
@@ -19,7 +16,7 @@
         </md-input-container>
         <md-input-container class="md-block">
             <label>File Name</label>
-            <input ng-model="user.title">
+            <input ng-model="model.name">
         </md-input-container>
         <md-input-container class="md-block" ng-click="model.SaveScriptLocation()">
             <label> File Location </label>
@@ -27,11 +24,14 @@
         </md-input-container>
         <md-input-container class="md-block">
             <label>Comment</label>
-            <textarea ng-model="user.biography" md-maxlength="500" rows="5" md-select-on-focus></textarea>
+            <textarea ng-model="model.comment" md-maxlength="500" rows="5" md-select-on-focus></textarea>
         </md-input-container>
+        <md-chips ng-show="model.gitFolders > 0"> 
+            <md-chip ng-repeat="git in model.gitFolders"> {{ git.file.name }}</md-chip> 
+        </md-chips>
         <md-card-actions layout="row" layout-align="center">
             <md-button class="md-primary md-raised" ng-click=""> Save </md-button>
-            <md-button class="md-primary md-raised" ng-click=""> Export </md-button>
+            <md-button class="md-primary md-raised" ng-click="model.exportSh()"> Export </md-button>
         </md-card-actions>
     </md-card-content>
 </md-card>
