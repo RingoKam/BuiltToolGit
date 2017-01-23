@@ -13,15 +13,15 @@ function capsuleController($state) {
     ////////////////
     model.$onInit = function () {
         dataStore.find({}).then((data) => {
-            debugger;
             model.capsules = data;
         })
     };
     // model.$onChanges = function (changesObj) {};
     // model.$onDestory = function () {};
 
-    model.changeState = (state, obj) => {
-        $state.go(state, obj);
+    model.changeState = (obj) => {
+        debugger;
+        $state.go("directory", obj);
     }
 
 }

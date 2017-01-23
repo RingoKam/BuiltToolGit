@@ -9,6 +9,7 @@ import 'font-awesome/css/font-awesome.css';
 import uiRouter from "angular-ui-router";
 import angularAnimate from 'angular-animate';
 import angularMaterial from 'angular-material';
+import uiSelect from 'ui-select';
 import directory from './directory/directory-component';
 import directoryState from './directory/directory-state'; 
 import capsule from './capsule/capsule.component';
@@ -18,7 +19,7 @@ import createSh from './CreateSh/create-sh.component';
 angular
     .module('app', [
         angularMaterial,
-        uiRouter
+        uiRouter,
     ])
     .config(['$mdThemingProvider', '$stateProvider', function ($mdThemingProvider, $stateProvider) {
         
