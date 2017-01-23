@@ -1,25 +1,31 @@
-'use strict';
+const dataStore = require('../library/datastore')
 
 export default {
     template: require("./capsule.html"),
-    //templateUrl: 'templateUrl',
-    controller: ControllerController,
+    controller: capsuleController,
     controllerAs: "model"
     // bindings: {
     //     Binding: '<',
     // },
 };
 
-ControllerController.inject = ['$state'];
+capsuleController.inject = ['$state'];
 
-function ControllerController($state) {
+function capsuleController($state) {
     var model = this;
     ////////////////
-    model.onInit = function () {};
-    model.onChanges = function (changesObj) {};
-    model.onDestory = function () {};
+    model.$onInit = function () {
+        debugger;
+        dataStore.find({}).then((data) => {
+            debugger;
+            model.gitFolders = data;
+        })
+    };
+    model.$onChanges = function (changesObj) {};
+    model.$onDestory = function () {};
 
     model.changeState = (state, obj) => {
         $state.go(state, obj);
     }
+
 }

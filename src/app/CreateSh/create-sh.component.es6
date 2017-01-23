@@ -1,7 +1,8 @@
 const electron = window.require('electron').remote;
-const createSh = require('../library/create_sh')
+const createSh = require('../library/create_sh');
 const fs = require('fs');
-const notifier = require('electron-notifications')
+const notifier = require('electron-notifications');
+const dataStore = require('../library/datastore')
 
 export default {
     template: require("./create-sh.html"),
@@ -31,6 +32,10 @@ function createShController() {
 
     model.exportSh = function () {
         debugger;
+        model.gitFolders = model.gitFolders.map( (el) =>  {
+            delete el['$$hashKey']; 
+            return el; 
+        });
         let {
             fileName,
             codeFile
@@ -39,6 +44,8 @@ function createShController() {
         writer.write(codeFile);
         writer.end("read -p \"Press enter to exit :)\"");
         writer.on('finish', () => {
+            let record = { name: fileName, gitFiles: model.gitFolders, comment: model.comment}
+            dataStore.insertdb(record); 
             notifier.notify('Success', {
                  message: `${model.name} created in ${model.outputLocation}`,
                  duration: 10000

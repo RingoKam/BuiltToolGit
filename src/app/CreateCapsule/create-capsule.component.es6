@@ -38,7 +38,6 @@ function createCapsuleController() {
     }
 
     model.AddGitFolders = function (gitFolder) {
-        debugger;
         if (!gitFolder.selected) {
             model.SelectedGitFolders.push(gitFolder); 
             model.onGitFoldersChange({
