@@ -21,10 +21,16 @@
             <md-input-container class="md-block">
                 <label>File Name</label>
                 <input ng-model="model.name" required>
+                <div ng-messages="colorForm.favoriteColor.$error">
+                    <div ng-message="required">This is required!</div>
+                </div>
             </md-input-container>
             <md-input-container class="md-block" ng-click="model.SaveScriptLocation()">
                 <label> File Location </label>
                 <input type="text" ng-model="model.outputLocation" disabled="true" flex placeholder="export location" required>
+                <div ng-messages="colorForm.favoriteColor.$error">
+                    <div ng-message="required">This is required!</div>
+                </div>
             </md-input-container>
             <md-input-container class="md-block">
                 <label>Comment</label>

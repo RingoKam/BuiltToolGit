@@ -11,7 +11,7 @@ import angularAnimate from 'angular-animate';
 import angularMaterial from 'angular-material';
 import uiSelect from 'ui-select';
 import directory from './directory/directory-component';
-import directoryState from './directory/directory-state'; 
+import directoryState from './directory/directory-state';
 import capsule from './capsule/capsule.component';
 import createCapsule from './CreateCapsule/create-capsule.component';
 import createSh from './CreateSh/create-sh.component';
@@ -22,12 +22,12 @@ angular
         uiRouter,
     ])
     .config(['$mdThemingProvider', '$stateProvider', function ($mdThemingProvider, $stateProvider) {
-        
+
         $mdThemingProvider.theme('default')
             .primaryPalette('indigo', {
                 'default': 'A700'
             })
-            .accentPalette('cyan',{
+            .accentPalette('cyan', {
                 'default': 'A400'
             });
 

@@ -54,7 +54,7 @@ function createShController() {
         writer.end("read -p \"Press enter to exit :)\"");
         writer.on('finish', () => {
             let record = {
-                capsule: model.capsuleName,
+                capsule: model.capsuleName ? model.capsuleName : "Other",
                 name: model.name,
                 gitFiles: model.gitFolders,
                 comment: model.comment,
