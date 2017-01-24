@@ -15,7 +15,7 @@ export default {
 
 // createCapsuleController.inject = ['dependency1'];
 
-function createCapsuleController() {
+function createCapsuleController($scope) {
     let model = this;
 
     model.$onInit = function () {
@@ -34,6 +34,7 @@ function createCapsuleController() {
         }, (filePath) => {
             let gitFolder = gitFolderInfo.GitFolders(filePath[0]);
             model.gitFolders = this.gitFolders.concat.apply(gitFolder);
+            $scope.$apply();
         });
     }
 

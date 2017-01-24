@@ -18,7 +18,7 @@ export default {
 
 // createShController.inject = ['dependency1'];
 
-function createShController() {
+function createShController($rootScope) {
     var model = this;
     model.onInit = function () {
         model.capsuleNames = capsuleNameStore.find({});
@@ -35,12 +35,10 @@ function createShController() {
     }
 
     model.addNewCapsuleName = function () {
-        debugger;
         console.log("this happened")
     }
 
     model.exportSh = function () {
-
         model.gitFolders = model.gitFolders.map((el) => {
             delete el['$$hashKey'];
             return el;
@@ -65,6 +63,7 @@ function createShController() {
                 message: `${model.name} created in ${model.outputLocation}`,
                 duration: 10000
             })
+            $rootScope.$emit("refreshData");
         });
     }
 }

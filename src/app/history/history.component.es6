@@ -1,31 +1,33 @@
-(function() {
-'use strict';
+const dataStore = require('../library/datastore')
 
-    // Usage:
-    // 
-    // Creates:
-    // 
+export default {
+    template: require("./history.html"),
+    controller: capsuleController,
+    controllerAs: "model"
+};
 
-    angular
-        .module('Module')
-        .component('Component', {
-            template:'htmlTemplate',
-            //templateUrl: 'templateUrl',
-            controller: ControllerController,
-            bindings: {
-                Binding: '=',
-            },
-        });
+capsuleController.inject = ['$state'];
 
-    ControllerController.inject = ['dependency1'];
-    function ControllerController(dependency1) {
-        var ctrl = this;
-        
+function capsuleController($state, $rootScope, $scope) {
+    var model = this;
+    model.$onInit = function () {
+        GrabData();
+    };
 
-        ////////////////
+    let grabDataEvent = $rootScope.$on("refreshData", GrabData)
 
-        ctrl.onInit = function() { };
-        ctrl.onChanges = function(changesObj) { };
-        ctrl.onDestory = function() { };
+    model.$onDestory = function () {
+        grabDataEvent();
+    };
+    // model.$onChanges = function (changesObj) {};
+    model.changeState = (obj) => {
+        $state.go("directory", obj);
+        $scope.$apply(); 
     }
-})();
+
+    function GrabData() {
+        dataStore.find({}).then((data) => {
+            model.capsules = data;
+        });
+    }
+}

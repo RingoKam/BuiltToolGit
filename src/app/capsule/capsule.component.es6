@@ -8,20 +8,26 @@ export default {
 
 capsuleController.inject = ['$state'];
 
-function capsuleController($state) {
+function capsuleController($state, $rootScope, $scope) {
     var model = this;
-    ////////////////
     model.$onInit = function () {
-        dataStore.find({}).then((data) => {
-            model.capsules = data;
-        })
+        GrabData();
+    };
+
+    let grabDataEvent = $rootScope.$on("refreshData", GrabData)
+
+    model.$onDestory = function () {
+        grabDataEvent();
     };
     // model.$onChanges = function (changesObj) {};
-    // model.$onDestory = function () {};
-
     model.changeState = (obj) => {
-        debugger;
         $state.go("directory", obj);
     }
 
+    function GrabData() {
+        dataStore.find({}).then((data) => {
+            model.capsules = data;
+            $scope.$apply(); 
+        });
+    }
 }

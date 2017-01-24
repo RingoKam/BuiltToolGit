@@ -1,6 +1,6 @@
 <md-list class="md-dense">
-    <md-subheader class="md-no-sticky">Sample Capsule</md-subheader>
-    <md-list-item ng-repeat="capsule in model.capsules"class="md-2-line" ng-click="model.changeState(capsule._id)">
+    <md-subheader class="">Sample Capsule </md-subheader>
+    <md-list-item ng-if="model.isTrue" ng-repeat="capsule in model.capsules"class="md-2-line" ng-click="model.changeState(capsule._id)">
         <div class="md-list-item-text">
             <h4>{{capsule.name}}</h4>
             <p>{{capsule.createdOn}}</p>

@@ -1,14 +1,14 @@
 <md-card>
     <md-card-title>
         <md-card-title-text>
-            <span class="md-display-1"> Create Git Capsule </span>
+            <span class="md-display-1 bungee"> Create Capsule </span>
             <span class="md-subhead"> Select Git Repository(s) to be save/export </span>
         </md-card-title-text>
         <md-button class="md-fab" ng-click="model.OpenDirectory()">
             <md-icon aria-label="Browse" class="ti-folder"></md-icon>
         </md-button>
     </md-card-title>
-    <md-card-content>
+    <md-card-content class="">
         <md-list>
             <md-list-item ng-repeat="gitFolder in model.gitFolders" class="md-3-line fade">
                 <div class="md-list-item-text" layout="column">

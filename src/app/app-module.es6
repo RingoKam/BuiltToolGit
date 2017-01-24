@@ -1,7 +1,7 @@
 require('jquery');
 require('jstree');
 require('../Assets/css/card.css');
-// require('../Assets/css/');
+require('../Assets/css/gitcapsule.css');
 
 import angular from 'angular';
 import 'angular-material/angular-material.css';
@@ -13,6 +13,7 @@ import uiSelect from 'ui-select';
 import directory from './directory/directory-component';
 import directoryState from './directory/directory-state';
 import capsule from './capsule/capsule.component';
+import history from './history/history.component'
 import createCapsule from './CreateCapsule/create-capsule.component';
 import createSh from './CreateSh/create-sh.component';
 
@@ -27,7 +28,7 @@ angular
             .primaryPalette('indigo', {
                 'default': 'A700'
             })
-            .accentPalette('cyan', {
+            .accentPalette('green', {
                 'default': 'A400'
             });
 
@@ -37,6 +38,8 @@ angular
     }])
     .component("directory", directory)
     .component("capsule", capsule)
+    .component("history", history)
     .component("createCapsule", createCapsule)
     .component("createSh", createSh)
+    
 // home.config();

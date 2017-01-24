@@ -1,9 +1,9 @@
 <div layout-fill layout="row" layout-wrap>
-    <md-content flex="50">
+    <md-content class="colorBackground" flex="50">
         <create-capsule selected-git-folders="model.selectedGitFolders" on-git-folders-change="model.updateGitFolders(folders)">
         </create-capsule>
     </md-content>
-    <md-content flex>
+    <md-content class="colorBackground" flex>
         <create-sh git-folders="model.selectedGitFolders">
         </create-sh>
     </md-content>
