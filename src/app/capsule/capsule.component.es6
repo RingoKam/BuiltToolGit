@@ -9,7 +9,9 @@ export default {
 capsuleController.inject = ['$state'];
 
 function capsuleController($state, $rootScope, $scope) {
+    
     var model = this;
+
     model.$onInit = function () {
         GrabData();
     };
@@ -26,8 +28,18 @@ function capsuleController($state, $rootScope, $scope) {
 
     function GrabData() {
         dataStore.find({}).then((data) => {
-            model.capsules = data;
+            model.capsules = RestructureData(data); 
             $scope.$apply(); 
         });
+    }
+
+    function RestructureData(data) {
+        debugger;
+        let capsuleNames = data.map((cap) => { return cap.capsule });
+        let capsules = capsuleNames.map((name) => {
+            let collection = data.filter( (d) => { return d.capsule === name }) 
+            return { name, collection }
+        })
+        return capsules; 
     }
 }

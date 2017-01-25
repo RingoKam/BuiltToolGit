@@ -7,5 +7,14 @@
 }
 
 .sidebarBackground {
-    background-color: #FFFFFF
+    background-color: #FAFAFA
+}
+
+.sidebarListItemBackground {
+    background-color: whitesmoke;
+    border: black
+}
+
+.centerText {
+    text-align: center
 }
