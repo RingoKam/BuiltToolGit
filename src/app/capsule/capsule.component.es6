@@ -34,8 +34,7 @@ function capsuleController($state, $rootScope, $scope) {
     }
 
     function RestructureData(data) {
-        debugger;
-        let capsuleNames = data.map((cap) => { return cap.capsule });
+        let capsuleNames = data.map((cap) => { return cap.capsule }).filter( (name, index, array) => { return array.indexOf(name) === index });
         let capsules = capsuleNames.map((name) => {
             let collection = data.filter( (d) => { return d.capsule === name }) 
             return { name, collection }
