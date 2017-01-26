@@ -24,11 +24,6 @@ function readDirectory(directory, gitFolder) {
     }
 };
 
-// function IsGit(fullpath) {
-//     if (getRepoInfo(fullpath).sha)
-//         return true;
-// }
-
 exports.GitFolders = (filePath) => {
     let gitFolder = [];
     readDirectory(filePath, gitFolder);

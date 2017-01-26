@@ -15,15 +15,12 @@ export default {
         gitFolders: '<',
     }
 }
-
 // createShController.inject = ['dependency1'];
-
 function createShController($rootScope) {
     var model = this;
     model.$onInit = function () {
         capsuleNameStore.find({}).then((data) => {
-            debugger;
-            model.capsuleNames = data.map( m => m.name ); 
+            model.capsuleNames = data.map(m => m.name);
         });
     };
     model.$onChanges = function (changesObj) {};
@@ -58,10 +55,13 @@ function createShController($rootScope) {
                 createdOn: moment().format('MMMM Do YYYY, h:mm:ss a')
             }
             dataStore.insertdb(record);
-            notifier.notify('Success', {
-                message: `${model.name} created in ${model.outputLocation}`,
-                duration: 10000
-            })
+            let myNotification = new Notification('Success!', {
+                body: `${model.name} created in ${model.outputLocation}`
+            });
+            // notifier.notify('Success', {
+            //     message: `${model.name} created in ${model.outputLocation}`,
+            //     duration: 10000
+            // })
             $rootScope.$emit("refreshData");
         });
     }

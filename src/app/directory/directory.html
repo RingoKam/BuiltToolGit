@@ -1,4 +1,5 @@
 <div layout-fill layout="row" layout-wrap>
+    <pre> {{ model | json }} </pre>
     <md-content class="colorBackground" flex="50">
         <create-capsule selected-git-folders="model.selectedGitFolders" on-git-folders-change="model.updateGitFolders(folders)">
         </create-capsule>

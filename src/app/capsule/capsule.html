@@ -1,18 +1,21 @@
 <!--<pre>{{ model.capsules | json }}</pre>-->
 <md-list class="md-dense">
     <div ng-repeat="capsule in model.capsules">
-        <md-subheader class="bungee centerText"  ng-click="capsule.show = !capsule.show">
-            {{ capsule.name }} 
+        <md-subheader class="bungee centerText" ng-click="capsule.show = !capsule.show">
+            {{ capsule.name }}
             <span ng-if="!capsule.show" class="ti-angle-down"></span>
-            <span ng-if="capsule.show" class="ti-angle-up"></span>  
+            <span ng-if="capsule.show" class="ti-angle-up"></span>
         </md-subheader>
-        <md-list-item ng-show="capsule.show" ng-repeat="record in capsule.collection" class="md-2-line" ng-click="model.changeState(capsule._id)">
-            <div class="md-list-item-text">
-                <h4>{{record.name}}</h4>
+        <div ng-show="capsule.show" ng-repeat="record in capsule.collection">
+            <md-list-item class="md-2-line" ng-click="model.changeState(record._id)">
+                <!--<pre> {{record | json}}</pre>-->
+                <div class="md-list-item-text">
+                    <h4>{{record.name}}</h4>
                 <p>{{record.createdOn}}</p>
-            </div>
-        </md-list-item>
+                </div>
+            </md-list-item>
+        </div>
         <md-divider></md-divider>
     </div>
-    <md-subheader class="md-warn bungee centerText md-raised" ng-click="model.PromptNewCapsule($event)">  Add New (+) </md-subheader>
-</md-list>  
+    <md-subheader class="md-warn bungee centerText md-raised" ng-click="model.PromptNewCapsule($event)"> Add New (+) </md-subheader>
+</md-list>

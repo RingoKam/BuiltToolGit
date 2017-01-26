@@ -13,7 +13,8 @@ function directoryController() {
     var model = this;
 
     model.$onInit = function() {{
-        model.selectedGitFolders = []; 
+        model.selectedGitFolders = [];
+        model.CapsuleId = model.CapsuleId 
     }}
 
     model.updateGitFolders = (folders) => {

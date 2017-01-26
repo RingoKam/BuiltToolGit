@@ -24,7 +24,7 @@ function capsuleController($state, $rootScope, $scope, $mdDialog) {
     };
     // model.$onChanges = function (changesObj) {};
     model.changeState = (obj) => {
-        $state.go("directory", obj);
+        $state.go("directory", obj, {"reload": true});
     }
 
     model.PromptNewCapsule = (ev) => {
@@ -39,7 +39,6 @@ function capsuleController($state, $rootScope, $scope, $mdDialog) {
             .cancel('Cancel');
 
         $mdDialog.show(confirm).then(function (name) {
-            debugger;
             let promise = capsuleNameStore.insertdb({name});
         });
     }
