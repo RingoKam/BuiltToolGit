@@ -4,7 +4,7 @@ const fs = require('fs');
 const notifier = require('electron-notifications');
 const dataStore = require('../library/datastore');
 const moment = require('moment');
-const capsuleNameStore = require('../library/capsuleNameStore');
+const capsuleNameStore = require('../library/capsule_name_store');
 
 export default {
     template: require("./create-sh.html"),
@@ -20,11 +20,14 @@ export default {
 
 function createShController($rootScope) {
     var model = this;
-    model.onInit = function () {
-        model.capsuleNames = capsuleNameStore.find({});
+    model.$onInit = function () {
+        capsuleNameStore.find({}).then((data) => {
+            debugger;
+            model.capsuleNames = data.map( m => m.name ); 
+        });
     };
     model.$onChanges = function (changesObj) {};
-    model.onDestory = function () {};
+    model.$onDestory = function () {};
     model.SaveScriptLocation = function () {
         electron.dialog.showOpenDialog({
             title: "Select output location",
@@ -32,10 +35,6 @@ function createShController($rootScope) {
         }, (filePath) => {
             this.outputLocation = filePath;
         })
-    }
-
-    model.addNewCapsuleName = function () {
-        console.log("this happened")
     }
 
     model.exportSh = function () {

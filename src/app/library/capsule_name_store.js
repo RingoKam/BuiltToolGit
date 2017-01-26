@@ -11,19 +11,20 @@ var db = new nedb({
 });
 
 exports.insertdb = (doc) => {
-    debugger;
+    var deferred = Q.defer();
     db.insert(doc, ((err) => {
-        console.log(err)
+        deferred.reject(new Error(err));
     }), (doc) => {
-        console.log(doc);
+        deferred.resolve(docs);
     });
+    return deferred.promise;
 }
 
 exports.find = (obj) => {
     var deferred = Q.defer();
     db.find(obj, (err, docs) => {
         if (err) {
-            deferred.reject(new Error(error));
+            deferred.reject(new Error(err));
         } else {
             deferred.resolve(docs);
         }
