@@ -1,0 +1,26 @@
+<div>
+    <!--<md-toolbar layout='row' class='md-toolbar-tools'>
+            <h1 style="font-family: Bungee">GIT CAPSULE</h1>
+        </md-toolbar>-->
+    <div flex layout="row">
+        <md-sidenav md-is-locked-open="true" class="md-sidenav-left md-whiteframe-4dp">
+            <md-tabs md-stretch-tabs="always" layout-fill class="md-primary sidebarBackground">
+                <md-tab id="tab1">
+                    <md-tab-label><span class="bungee">History</span></md-tab-label>
+                    <md-tab-body>
+                        <history></history>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="tab2">
+                    <md-tab-label><span class="bungee">Capsules</span></md-tab-label>
+                    <md-tab-body>
+                        <capsule></capsule>
+                    </md-tab-body>
+                </md-tab>
+            </md-tabs>
+        </md-sidenav>
+        <md-content layout-fill style="background-color: #00317D">
+            <ui-view></ui-view>
+        </md-content>
+    </div>
+</div>

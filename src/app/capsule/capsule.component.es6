@@ -23,8 +23,8 @@ function capsuleController($state, $rootScope, $scope, $mdDialog) {
         grabDataEvent();
     };
     // model.$onChanges = function (changesObj) {};
-    model.changeState = (obj) => {
-        $state.go("directory", obj, {"reload": true});
+    model.changeState = (id) => {
+        $state.go("directory", {"capsuleid": id});
     }
 
     model.PromptNewCapsule = (ev) => {

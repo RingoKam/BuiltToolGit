@@ -1,6 +1,7 @@
 export default {
     binding: {
-        CapsuleId: "<"
+        capsuleid: "<",
+        selectedGitFolders: "<"
     },
     template: require("./directory.html"),
     controller: directoryController,
@@ -13,11 +14,10 @@ function directoryController() {
     var model = this;
 
     model.$onInit = function() {{
-        model.selectedGitFolders = [];
-        model.CapsuleId = model.CapsuleId 
+        // model.selectedGitFolders = [];
     }}
 
     model.updateGitFolders = (folders) => {
         model.selectedGitFolders = folders; 
-    } 
+    }
 }

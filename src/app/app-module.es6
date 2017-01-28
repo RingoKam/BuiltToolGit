@@ -16,13 +16,14 @@ import capsule from './capsule/capsule.component';
 import history from './history/history.component'
 import createCapsule from './CreateCapsule/create-capsule.component';
 import createSh from './CreateSh/create-sh.component';
+import home from './home/home.component';
 
 angular
     .module('app', [
         angularMaterial,
         uiRouter,
     ])
-    .config(['$mdThemingProvider', '$stateProvider', function ($mdThemingProvider, $stateProvider) {
+    .config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
 
         $mdThemingProvider.theme('default')
             .primaryPalette('indigo', {
@@ -35,11 +36,15 @@ angular
         $stateProvider
             .state("directory", directoryState);
 
+        $urlRouterProvider.otherwise('/directory')
+
     }])
+    
+    .component("home", home)
     .component("directory", directory)
     .component("capsule", capsule)
     .component("history", history)
     .component("createCapsule", createCapsule)
     .component("createSh", createSh)
-    
+
 // home.config();
