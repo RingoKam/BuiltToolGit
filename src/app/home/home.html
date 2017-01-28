@@ -8,19 +8,20 @@
                 <md-tab id="tab1">
                     <md-tab-label><span class="bungee">History</span></md-tab-label>
                     <md-tab-body>
-                        <history></history>
+                        <history capsules="model.capsules"></history>
                     </md-tab-body>
                 </md-tab>
                 <md-tab id="tab2">
                     <md-tab-label><span class="bungee">Capsules</span></md-tab-label>
                     <md-tab-body>
-                        <capsule></capsule>
+                        <capsule capsules="model.capsules" on-update-capsule-name="model.onUpdateCapules"></capsule>
                     </md-tab-body>
                 </md-tab>
             </md-tabs>
         </md-sidenav>
         <md-content layout-fill style="background-color: #00317D">
-            <ui-view></ui-view>
+            <!--<directory></directory>-->
+            <ui-view> </ui-view>
         </md-content>
     </div>
 </div>

@@ -14,6 +14,9 @@ function homeController() {
     var model = this;
 
     model.$onInit = function () {
+        debugger;
+        model.Capsules = [];
+        model.CapsuleName = []; 
         GetCapsuleData();
         GetCapsuleNameData();
     };
@@ -35,7 +38,7 @@ function homeController() {
 
     function GetCapsuleData() {
         dataStore.find({}).then((data) => {
-            model.capsules = data;
+            model.Capsules = data;
         });
     }
 
