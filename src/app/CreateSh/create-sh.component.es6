@@ -18,13 +18,18 @@ export default {
 // createShController.inject = ['dependency1'];
 function createShController($rootScope) {
     var model = this;
+
     model.$onInit = function () {
         capsuleNameStore.find({}).then((data) => {
             model.capsuleNames = data.map(m => m.name);
         });
     };
-    model.$onChanges = function (changesObj) {};
+    model.$onChanges = function (changesObj) {
+        if (this.gitFolders.gitFiles)
+            model.gitFolders = this.gitFolders.gitFiles;
+    };
     model.$onDestory = function () {};
+
     model.SaveScriptLocation = function () {
         electron.dialog.showOpenDialog({
             title: "Select output location",

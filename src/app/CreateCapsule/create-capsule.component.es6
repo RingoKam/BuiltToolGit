@@ -14,43 +14,48 @@ export default {
 };
 
 // createCapsuleController.inject = ['dependency1'];
-
 function createCapsuleController($scope) {
     let model = this;
 
     model.$onInit = function () {
-        model.gitFolders = model.SelectedGitFolders ? model.SelectedGitFolders : [];
+        model.gitFolders = [];
         model.onGitFoldersChange = this.onGitFoldersChange;
-        model.SelectedGitFolders = model.SelectedGitFolders ? model.SelectedGitFolders : [];
+        model.selectedGitFolders = angular.copy(this.selectedGitFolders); 
     };
 
-    model.$onChanges = function (changesObj) {};
+    model.$onChanges = function (changesObj) {
+        model.gitFolders = model.selectedGitFolders.gitFiles;
+    };
+
     model.$onDestory = function () {};
 
     model.OpenDirectory = function () {
+        model.loading = true; 
         electron.dialog.showOpenDialog({
             title: "Select a folder",
             properties: ["openDirectory"]
         }, (filePath) => {
             let gitFolder = gitFolderInfo.GitFolders(filePath[0]);
             model.gitFolders = this.gitFolders.concat.apply(gitFolder);
+            model.loading = false;
             $scope.$apply();
         });
     }
 
     model.AddGitFolders = function (gitFolder) {
+        debugger;
         if (!gitFolder.selected) {
-            model.SelectedGitFolders.push(gitFolder); 
+            model.selectedGitFolders.gitFiles.push(gitFolder); 
             model.onGitFoldersChange({
                 folders: model.SelectedGitFolders
             })
         } else {
-            let removethis = model.SelectedGitFolders.filter((el) => {
-                return el.$$hashKey == gitFolder.$$hashKey
+            let removethis = model.selectedGitFolders.gitFiles.filter((el) => {
+                return el.repoInfo.abbreviatedSha == gitFolder.repoInfo.abbreviatedSha
             })[0];
-            let index = model.SelectedGitFolders.indexOf(removethis)
+            let index = model.selectedGitFolders.gitFiles.indexOf(removethis)
             if (index > -1)
-                model.SelectedGitFolders.splice(index, 1);
+                model.selectedGitFolders.gitFiles.splice(index, 1);
         }
     }
 }
