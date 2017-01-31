@@ -6,7 +6,7 @@ const electron = require('electron');
 electron.app.on('ready', () => {
     let mainWindow = new electron.BrowserWindow({
         height: 650,
-        width: 1200
+        width: 1300
     })
 
     mainWindow.loadURL('file://' + __dirname + '/app/index.html');
