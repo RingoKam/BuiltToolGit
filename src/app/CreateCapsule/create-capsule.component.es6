@@ -21,22 +21,24 @@ function createCapsuleController($scope) {
     model.$onInit = function () {
         model.gitFolders = this.gitFolders;
         model.onGitFoldersChange = this.onGitFoldersChange;
-        model.selectedGitFolders = this.selectedGitFolders; 
+        model.selectedGitFolders = this.selectedGitFolders;
     };
 
-    model.$onChanges = function (changesObj) {
-    };
+    model.$onChanges = function (changesObj) {};
 
     model.$onDestory = function () {};
 
     model.OpenDirectory = function () {
-        model.loading = true; 
+        model.loading = true;
         electron.dialog.showOpenDialog({
             title: "Select a folder",
             properties: ["openDirectory"]
         }, (filePath) => {
-            let gitFolder = gitFolderInfo.GitFolders(filePath[0]);
-            model.gitFolders = this.gitFolders.concat.apply(gitFolder);
+            debugger;
+            if (filePath) {
+                let gitFolder = gitFolderInfo.GitFolders(filePath[0]);
+                model.gitFolders = this.gitFolders.concat.apply(gitFolder);
+            }
             model.loading = false;
             $scope.$apply();
         });
@@ -45,7 +47,7 @@ function createCapsuleController($scope) {
     model.AddGitFolders = function (gitFolder) {
         debugger;
         if (!gitFolder.selected) {
-            model.selectedGitFolders.push(gitFolder); 
+            model.selectedGitFolders.push(gitFolder);
             model.onGitFoldersChange({
                 folders: model.selectedGitFolders
             })
