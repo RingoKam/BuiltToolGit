@@ -8,6 +8,7 @@ export default {
     controller: createCapsuleController,
     controllerAs: "model",
     bindings: {
+        gitFolders: "<",
         selectedGitFolders: '<',
         onGitFoldersChange: '&'
     },
@@ -18,13 +19,12 @@ function createCapsuleController($scope) {
     let model = this;
 
     model.$onInit = function () {
-        model.gitFolders = [];
+        model.gitFolders = this.gitFolders;
         model.onGitFoldersChange = this.onGitFoldersChange;
-        model.selectedGitFolders = angular.copy(this.selectedGitFolders); 
+        model.selectedGitFolders = this.selectedGitFolders; 
     };
 
     model.$onChanges = function (changesObj) {
-        model.gitFolders = model.selectedGitFolders.gitFiles;
     };
 
     model.$onDestory = function () {};
@@ -45,17 +45,17 @@ function createCapsuleController($scope) {
     model.AddGitFolders = function (gitFolder) {
         debugger;
         if (!gitFolder.selected) {
-            model.selectedGitFolders.gitFiles.push(gitFolder); 
+            model.selectedGitFolders.push(gitFolder); 
             model.onGitFoldersChange({
-                folders: model.SelectedGitFolders
+                folders: model.selectedGitFolders
             })
         } else {
-            let removethis = model.selectedGitFolders.gitFiles.filter((el) => {
+            let removethis = model.selectedGitFolders.filter((el) => {
                 return el.repoInfo.abbreviatedSha == gitFolder.repoInfo.abbreviatedSha
             })[0];
-            let index = model.selectedGitFolders.gitFiles.indexOf(removethis)
+            let index = model.selectedGitFolders.indexOf(removethis)
             if (index > -1)
-                model.selectedGitFolders.gitFiles.splice(index, 1);
+                model.selectedGitFolders.splice(index, 1);
         }
     }
 }

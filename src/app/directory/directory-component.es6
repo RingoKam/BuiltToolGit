@@ -15,14 +15,22 @@ export default {
 function directoryController() {
     var model = this;
 
-    model.$onInit = function () {
-        model.capsuleid = this.capsuleid
-        dataStore.find({
-            _id: this.capsuleid
-        }).then((data) => {
-            model.selectedGitFolders = data[0];
-            model.selectedGitFolders = model.selectedGitFolders.map((e) => e.selected = true)
-        });
+    model.$onInit = function ($scope) {
+        model.capsuleid = this.capsuleid; 
+        model.selectedGitFolders = [];
+        model.gitFolders = [];
+        if (model.capsuleid) {
+            dataStore.find({
+                _id: this.capsuleid
+            }).then((data) => {
+                model.gitFolders = data[0].gitFiles;
+                // model.gitFolders = model.selectedGitFolders.map((e) => e.selected = true)
+                // model.loading = false; 
+                // if(!$scope.$$phase) {
+                // $scope.$apply(); 
+                // }
+            });
+        }
     }
 
     model.$onChange = function (changeObj) {

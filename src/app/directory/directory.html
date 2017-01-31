@@ -1,7 +1,10 @@
-<div layout-fill layout="row" layout-wrap>
+<div ng-if="model.loading">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
+<div ng-if="!model.loading" layout-fill layout="row" layout-wrap>
     <!--<pre> {{ model | json }} </pre>-->
     <md-content class="colorBackground" flex="50">
-        <create-capsule selected-git-folders="model.selectedGitFolders" on-git-folders-change="model.updateGitFolders(folders)">
+        <create-capsule git-folders="model.gitFolders" selected-git-folders="model.selectedGitFolders" on-git-folders-change="model.updateGitFolders(folders)">
         </create-capsule>
     </md-content>
     <md-content class="colorBackground" flex>

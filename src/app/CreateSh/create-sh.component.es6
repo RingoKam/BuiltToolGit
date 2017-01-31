@@ -25,8 +25,8 @@ function createShController($rootScope) {
         });
     };
     model.$onChanges = function (changesObj) {
-        if (this.gitFolders.gitFiles)
-            model.gitFolders = this.gitFolders.gitFiles;
+        if (this.gitFolders)
+            model.gitFolders = this.gitFolders;
     };
     model.$onDestory = function () {};
 
@@ -42,6 +42,7 @@ function createShController($rootScope) {
     model.exportSh = function () {
         model.gitFolders = model.gitFolders.map((el) => {
             delete el['$$hashKey'];
+            delete el['selected']; 
             return el;
         });
         let {
