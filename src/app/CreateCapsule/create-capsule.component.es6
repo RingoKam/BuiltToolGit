@@ -28,13 +28,20 @@ function createCapsuleController($scope) {
 
     model.$onDestory = function () {};
 
+    model.refreshGit = function () {
+        model.gitFolders = model.gitFolders.map((m) => {
+            debugger;
+            let x =  gitFolderInfo.GetFileInfo(m.repoInfo.root);
+            return x; 
+        })
+    };
+
     model.OpenDirectory = function () {
         model.loading = true;
         electron.dialog.showOpenDialog({
             title: "Select a folder",
             properties: ["openDirectory"]
         }, (filePath) => {
-            debugger;
             if (filePath) {
                 let gitFolder = gitFolderInfo.GitFolders(filePath[0]);
                 model.gitFolders = this.gitFolders.concat.apply(gitFolder);

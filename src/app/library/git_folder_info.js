@@ -3,13 +3,15 @@ const path = require('path');
 const getRepoInfo = require('git-repo-info');
 const parseGit = require('parse-git-config');
 
-let Folders = []; 
+let Folders = [];
 
 function readDirectory(directory, gitFolder) {
-    const repoInfo = getRepoInfo(directory); 
+    const repoInfo = getRepoInfo(directory);
     if (repoInfo.sha) {
-        const config = parseGit.sync({path: directory + "/.git/config"}); 
-        const file = path.parse(directory); 
+        const config = parseGit.sync({
+            path: directory + "/.git/config"
+        });
+        const file = path.parse(directory);
         gitFolder.push({
             "file": file,
             "repoInfo": repoInfo,
@@ -23,6 +25,18 @@ function readDirectory(directory, gitFolder) {
         }
     }
 };
+
+exports.GetFileInfo = (directory) => {
+    const repoInfo = getRepoInfo(directory);
+    const config = parseGit.sync({path: directory + "/.git/config"});
+    const file = path.parse(directory);
+
+    return {
+        "file": file,
+        "repoInfo": repoInfo,
+        "config": config
+    };;
+}
 
 exports.GitFolders = (filePath) => {
     let gitFolder = [];
