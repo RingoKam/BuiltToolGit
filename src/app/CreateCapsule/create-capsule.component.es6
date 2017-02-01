@@ -30,9 +30,7 @@ function createCapsuleController($scope) {
 
     model.refreshGit = function () {
         model.gitFolders = model.gitFolders.map((m) => {
-            debugger;
-            let x =  gitFolderInfo.GetFileInfo(m.repoInfo.root);
-            return x; 
+            return gitFolderInfo.GetFileInfo(m.repoInfo.root);
         })
     };
 
@@ -52,7 +50,6 @@ function createCapsuleController($scope) {
     }
 
     model.AddGitFolders = function (gitFolder) {
-        debugger;
         if (!gitFolder.selected) {
             model.selectedGitFolders.push(gitFolder);
             model.onGitFoldersChange({

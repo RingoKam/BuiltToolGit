@@ -1,4 +1,4 @@
-const dataStore = require('../library/datastore')
+const dataStore = require('../library/datastore');
 
 export default {
     template: require("./history.html"),
@@ -19,10 +19,11 @@ function capsuleController($state, $rootScope, $scope) {
     model.$onDestory = function () {
         grabDataEvent();
     };
-    // model.$onChanges = function (changesObj) {};
-    model.changeState = (obj) => {
-        $state.go("directory", obj);
-        $scope.$apply(); 
+
+    model.changeState = (id) => {
+        $state.go("directory", {
+            "capsuleid": id
+        });
     }
 
     function GrabData() {
