@@ -5,6 +5,7 @@ const notifier = require('electron-notifications');
 const dataStore = require('../library/datastore');
 const moment = require('moment');
 const capsuleNameStore = require('../library/capsule_name_store');
+const remote = require('electron').remote
 
 export default {
     template: require("./create-sh.html"),
@@ -15,8 +16,9 @@ export default {
         gitFolders: '<',
     }
 }
-// createShController.inject = ['dependency1'];
-function createShController($rootScope) {
+// createShController.inject = [''];
+
+function createShController($mdDialog) {
     var model = this;
 
     model.$onInit = function () {
@@ -40,35 +42,43 @@ function createShController($rootScope) {
     }
 
     model.exportSh = function () {
-        model.gitFolders = model.gitFolders.map((el) => {
-            delete el['$$hashKey'];
-            delete el['selected']; 
-            return el;
-        });
-        let {
-            fileName,
-            codeFile
-        } = createSh.createScript(model.outputLocation, model.gitFolders, model.name, model.comment);
-        const writer = fs.createWriteStream(fileName);
-        writer.write(codeFile);
-        writer.end("read -p \"Press enter to exit :)\"");
-        writer.on('finish', () => {
-            let record = {
-                capsule: model.capsuleName ? model.capsuleName : "Other",
-                name: model.name,
-                gitFiles: model.gitFolders,
-                comment: model.comment,
-                createdOn: moment().format('MMMM Do YYYY, h:mm:ss a')
-            }
-            dataStore.insertdb(record);
-            let myNotification = new Notification('Success!', {
-                body: `${model.name} created in ${model.outputLocation}`
+        if (model.gitFolders && model.gitFolders.length > 0 && model.outputLocation && model.name) {
+            model.gitFolders = model.gitFolders.map((el) => {
+                delete el['$$hashKey'];
+                delete el['selected'];
+                return el;
             });
-            // notifier.notify('Success', {
-            //     message: `${model.name} created in ${model.outputLocation}`,
-            //     duration: 10000
-            // })
-            $rootScope.$emit("refreshData");
-        });
+            let {
+                fileName,
+                codeFile
+            } = createSh.createScript(model.outputLocation, model.gitFolders, model.name, model.comment);
+            const writer = fs.createWriteStream(fileName);
+            writer.write(codeFile);
+            writer.end("read -p \"Press enter to exit :)\"");
+            writer.on('finish', () => {
+                let record = {
+                    capsule: model.capsuleName ? model.capsuleName : "Other",
+                    name: model.name,
+                    gitFiles: model.gitFolders,
+                    comment: model.comment,
+                    createdOn: moment().format('MMMM Do YYYY, h:mm:ss a')
+                }
+                var promise = dataStore.insertdb(record);
+                let myNotification = new Notification('Success!', {
+                    body: `${model.name} created in ${model.outputLocation}`
+                });
+                promise.then(remote.getCurrentWindow().reload());
+            });
+        } else {
+            $mdDialog.show(
+                $mdDialog.alert()
+                .parent(angular.element(document.querySelector('#popupContainer')))
+                .clickOutsideToClose(true)
+                .title('Error')
+                .textContent('Please fill out required field.')
+                .ariaLabel('Error')
+                .ok('Got it!')
+            );
+        }
     }
 }

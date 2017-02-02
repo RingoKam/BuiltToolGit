@@ -43,6 +43,11 @@ function createCapsuleController($scope) {
             if (filePath) {
                 let gitFolder = gitFolderInfo.GitFolders(filePath[0]);
                 model.gitFolders = this.gitFolders.concat.apply(gitFolder);
+                model.gitFolders.sort((a, b) => {
+                    let current = a.file.name.toLowerCase();
+                    let next = b.file.name.toLowerCase();
+                    return current < next ? -1 : current > next ? 1 : 0; 
+                })
             }
             model.loading = false;
             $scope.$apply();
