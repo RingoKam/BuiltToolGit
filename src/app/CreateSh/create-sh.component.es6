@@ -43,18 +43,24 @@ function createShController($mdDialog) {
 
     model.exportSh = function () {
         if (model.gitFolders && model.gitFolders.length > 0 && model.outputLocation && model.name) {
+            
             model.gitFolders = model.gitFolders.map((el) => {
                 delete el['$$hashKey'];
                 delete el['selected'];
                 return el;
             });
+
+            var baseCode = fs.readFileSync("./src/Assets/bashbase.sh");
+            
             let {
                 fileName,
                 codeFile
             } = createSh.createScript(model.outputLocation, model.gitFolders, model.name, model.comment);
+            
             const writer = fs.createWriteStream(fileName);
-            writer.write(codeFile);
-            writer.end("read -p \"Press enter to exit :)\"");
+
+            writer.write(baseCode + codeFile);
+            writer.end("Summary");
             writer.on('finish', () => {
                 let record = {
                     capsule: model.capsuleName ? model.capsuleName : "Other",

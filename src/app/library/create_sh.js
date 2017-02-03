@@ -6,7 +6,7 @@ function Writewithbreaktag(string) {
 
 function InitializeLocalVariable(root) {
     let text = "";
-    text += Writewithbreaktag("username=\"USER INPUT\"");
+    // text += Writewithbreaktag("username=\"USER INPUT\"");
     text += Writewithbreaktag("root=\"" + root.replace(/\W/g, '') + "\"");
     return text;
 }
@@ -108,10 +108,10 @@ function GetUsername() {
 }
 
 exports.createScript = (directory, selectedGitFolders, name, comment) => {
-    let codeFile = CreateGitCapsuleLogo();
+    // let codeFile = CreateGitCapsuleLogo();
     //assuming root is same for now.. 
-    codeFile += InitializeLocalVariable(selectedGitFolders[0].file.root);
-    codeFile += CreatePullCodeFunction();
+    // codeFile += CreatePullCodeFunction();
+    let codeFile = InitializeLocalVariable(selectedGitFolders[0].file.root);
     if (comment) {
         codeFile += CreateComment(comment);
     }
