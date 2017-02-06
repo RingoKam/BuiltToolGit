@@ -29,11 +29,13 @@ function CreateGitCapsuleLogo() {
 function CreateComment(comment) {
     let text = "";
     let commentsArray = comment.match(new RegExp('.{1,' + 99 + '}', 'g'));
-    text += Writewithbreaktag("echo '##NOTE#############################################################################################'");
+    text += Writewithbreaktag("echo '********************************************************************************'");
+    text += Writewithbreaktag("echo '**                                --COMMENT--                                 **'");
+    text += Writewithbreaktag("echo '**********************************************;**********************************'");
     for (var index in commentsArray) {
-        text += Writewithbreaktag("echo " + commentsArray[index]);
+        text += Writewithbreaktag(`padOutput "2" + "${commentsArray[index]}"`);
     }
-    text += Writewithbreaktag("echo '###################################################################################################'");
+    text += Writewithbreaktag("echo '********************************************************************************'");
     return text;
 }
 
