@@ -1,4 +1,5 @@
 const Q = require('q');
+const pkg = require('./package')
 
 function Writewithbreaktag(string) {
     return string + "\n";
@@ -8,6 +9,7 @@ function InitializeLocalVariable(root) {
     let text = "";
     // text += Writewithbreaktag("username=\"USER INPUT\"");
     text += Writewithbreaktag("root=\"" + root.replace(/\W/g, '') + "\"");
+    text += Writewithbreaktag(`version= ${pkg.name} ${pkg.version}`);
     return text;
 }
 
@@ -28,12 +30,12 @@ function CreateGitCapsuleLogo() {
 
 function CreateComment(comment) {
     let text = "";
-    let commentsArray = comment.match(new RegExp('.{1,' + 99 + '}', 'g'));
+    let commentsArray = comment.match(new RegExp('.{1,' + 70 + '}', 'g'));
     text += Writewithbreaktag("echo '********************************************************************************'");
     text += Writewithbreaktag("echo '**                                --COMMENT--                                 **'");
-    text += Writewithbreaktag("echo '**********************************************;**********************************'");
+    text += Writewithbreaktag("echo '********************************************************************************'");
     for (var index in commentsArray) {
-        text += Writewithbreaktag(`padOutput "2" + "${commentsArray[index]}"`);
+        text += Writewithbreaktag(`padOutput "2" "${commentsArray[index]}"`);
     }
     text += Writewithbreaktag("echo '********************************************************************************'");
     return text;
