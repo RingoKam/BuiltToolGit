@@ -34,16 +34,13 @@ angular
 
         $stateProvider
             .state("directory", directoryState);
-
+            
         $urlRouterProvider.otherwise('/directory')
-
     }])
-    
     .component("home", home)
     .component("directory", directory)
     .component("capsule", capsule)
     .component("history", history)
     .component("createCapsule", createCapsule)
     .component("createSh", createSh)
-
 // home.config();

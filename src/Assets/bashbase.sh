@@ -149,7 +149,7 @@ function Summary()
 	padOutput "2" "Repos Stashed:           $intStashes"
 	resetColor 1 2
 	echo "********************************************************************************"
-	padOutput "2" "Version: $version                                                      "
+	padOutput "2" "Version: $version"
 	resetColor 1 2
 	echo "********************************************************************************"
 	echo

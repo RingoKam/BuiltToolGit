@@ -1,5 +1,5 @@
 const Q = require('q');
-const pkg = require('./package')
+var pkg = require('../../../package');
 
 function Writewithbreaktag(string) {
     return string + "\n";
@@ -9,7 +9,7 @@ function InitializeLocalVariable(root) {
     let text = "";
     // text += Writewithbreaktag("username=\"USER INPUT\"");
     text += Writewithbreaktag("root=\"" + root.replace(/\W/g, '') + "\"");
-    text += Writewithbreaktag(`version= ${pkg.name} ${pkg.version}`);
+    text += Writewithbreaktag(`version="${pkg.name} ${pkg.version} --Amtrust Ed"`);
     return text;
 }
 
@@ -98,7 +98,7 @@ function ParseDirectory(directory) {
 function GetProject(projects) {
     let text = Writewithbreaktag("echo \"Following Git Repository will be created/updated in your root directory\"");
     for (let i in projects) {
-        text += Writewithbreaktag("echo \"" + projects[i] + "\"");
+        text += Writewithbreaktag(`echo "${projects[i].name} at ${projects[i].dir}"`);
     }
     text += Writewithbreaktag("read -p \"Press enter to continue...\"");
     return text;
@@ -120,7 +120,7 @@ exports.createScript = (directory, selectedGitFolders, name, comment) => {
         codeFile += CreateComment(comment);
     }
     codeFile += GetProject(selectedGitFolders.map((e) => {
-        return e.file.name
+        return { name: e.file.name, dir: e.repoInfo.root }
     }));
     codeFile += GetUsername();
     codeFile += PullCode(selectedGitFolders);

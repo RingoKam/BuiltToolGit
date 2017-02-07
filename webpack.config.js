@@ -34,11 +34,15 @@ module.exports = {
         }, {
             test: [/fontawesome-webfont\.svg/, /fontawesome-webfont\.eot/, /fontawesome-webfont\.ttf/, /fontawesome-webfont\.woff/, /fontawesome-webfont\.woff2/],
             loader: 'file?name=fonts/[name].[ext]'
+        }, {
+            test: /\.json$/,
+            exclude: /node_modules/,
+            loader: "json-loader"
         }]
     },
     target: 'electron',
     resolve: {
         //array of file extensions that will be included to be process in module
-        extensions: ['', '.js', '.es6']
+        extensions: ['', '.js', '.es6', '.json']
     }
 }
