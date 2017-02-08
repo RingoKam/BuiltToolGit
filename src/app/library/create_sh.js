@@ -35,7 +35,7 @@ function CreateComment(comment) {
     text += Writewithbreaktag("echo '**                                --COMMENT--                                 **'");
     text += Writewithbreaktag("echo '********************************************************************************'");
     for (var index in commentsArray) {
-        text += Writewithbreaktag(`padOutput "2" "${commentsArray[index]}"`);
+        text += Writewithbreaktag(`padOutput "7" "${commentsArray[index]}"`);
     }
     text += Writewithbreaktag("echo '********************************************************************************'");
     return text;
@@ -96,10 +96,15 @@ function ParseDirectory(directory) {
 }
 
 function GetProject(projects) {
-    let text = Writewithbreaktag("echo \"Following Git Repository will be created/updated in your root directory\"");
+    let text = Writewithbreaktag("echo -e '\033[1mFollowing Git Repository will be created/updated in your directory.\033[0m'");
+    let longestStringLength =  projects.reduce( (prev, cur) => prev.name.length > cur.name.length ? prev.name.length : cur.name.length);
+    text += Writewithbreaktag("echo -e '\033[1mIMPORTANT! Changes not committed will be stashed.\033[0m'");
+    text += Writewithbreaktag("echo '================================================================================'"); 
     for (let i in projects) {
-        text += Writewithbreaktag(`echo "${projects[i].name} at ${projects[i].dir}"`);
+        let padding = Array(1 + longestStringLength - projects[i].name.length).join("-");  
+        text += Writewithbreaktag(`echo "${projects[i].name} ${padding}-> ${projects[i].dir}"`);
     }
+    text += Writewithbreaktag("echo '================================================================================'"); 
     text += Writewithbreaktag("read -p \"Press enter to continue...\"");
     return text;
 }
