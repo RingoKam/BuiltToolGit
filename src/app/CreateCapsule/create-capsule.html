@@ -5,11 +5,17 @@
             <span class="md-subhead"> Select Git Repository(s) to be save/export </span>
         </md-card-title-text>
         <md-button class="md-fab" ng-click="model.OpenDirectory()">
-            <md-icon aria-label="Browse" class="ti-folder"></md-icon>
+            <md-icon aria-label="Browse" class="ti-plus"></md-icon>
+        </md-button>
+        <md-button class="md-fab" ng-click="model.refreshGit()">
+            <md-icon aria-label="Reload" class="ti-reload"></md-icon>
         </md-button>
     </md-card-title>
     <md-card-content class="">
-        <md-list>
+        <div ng-if="model.loading">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <md-list ng-if="!model.loading">
             <md-list-item ng-repeat="gitFolder in model.gitFolders" class="md-3-line fade">
                 <div class="md-list-item-text" layout="column">
                     <md-checkbox 

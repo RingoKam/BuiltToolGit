@@ -1,14 +1,11 @@
 const dataStore = require('../library/datastore');
 const capsuleNameStore = require('../library/capsule_name_store');
+const remote = require('electron').remote
 
 export default {
     template: require("./capsule.html"),
     controller: capsuleController,
-    controllerAs: "model",
-    binding: {
-        capsules: "<",
-        onUpdateCapsuleName: "&"
-    }
+    controllerAs: "model"
 };
 
 capsuleController.inject = ['$state'];
@@ -18,23 +15,19 @@ function capsuleController($state, $rootScope, $scope, $mdDialog) {
     var model = this;
 
     model.$onInit = function () {
-        debugger;
-        model.capsules = RestructureData(model.capsules)
-        model.onUpdateCapsuleName = model.onUpdateCapsuleName;
+        GrabData();
     };
 
-    // let grabDataEvent = $rootScope.$on("refreshData", GrabData)
-
-    ctrl.$onChanges = function() {
-        
-    };
+    let grabDataEvent = $rootScope.$on("refreshData", GrabData)
 
     model.$onDestory = function () {
-        // grabDataEvent();
+        grabDataEvent();
     };
     // model.$onChanges = function (changesObj) {};
     model.changeState = (id) => {
-        // $state.go("directory", {"capsuleid": id});
+        $state.go("directory", {
+            "capsuleid": id
+        });
     }
 
     model.PromptNewCapsule = (ev) => {
@@ -49,37 +42,38 @@ function capsuleController($state, $rootScope, $scope, $mdDialog) {
             .cancel('Cancel');
 
         $mdDialog.show(confirm).then(function (name) {
-            // let promise = capsuleNameStore.insertdb({name});
-            model.onUpdateCapsuleName({
-                name
-            });
+            if(!model.capsulesName.includes(name)){
+                let promise = capsuleNameStore.insertdb({name});
+                promise.then(remote.getCurrentWindow().reload());
+            }
         });
     }
 
-    // function GrabData() {
-    //     dataStore.find({}).then((data) => {
-    //         model.capsules = RestructureData(data);
-    //         $scope.$apply();
-    //     });
-    // }
+    function GrabData() {
+        dataStore.find({}).then((data) => {
+            model.capsules = RestructureData(data);
+            // $scope.$apply(); 
+        });
+        capsuleNameStore.find({}).then((data) => {
+            model.capsulesName = data.map((m) => m.name)
+        })
+    }
 
     function RestructureData(data) {
-        if (data) {
-            let capsuleNames = data.map((cap) => {
-                return cap.capsule
-            }).filter((name, index, array) => {
-                return array.indexOf(name) === index
-            });
-            let capsules = capsuleNames.map((name) => {
-                let collection = data.filter((d) => {
-                    return d.capsule === name
-                })
-                return {
-                    name,
-                    collection
-                }
+        let capsuleNames = data.map((cap) => {
+            return cap.capsule
+        }).filter((name, index, array) => {
+            return array.indexOf(name) === index
+        });
+        let capsules = capsuleNames.map((name) => {
+            let collection = data.filter((d) => {
+                return d.capsule === name
             })
-            return capsules;
-        }
+            return {
+                name,
+                collection
+            }
+        })
+        return capsules;
     }
 }

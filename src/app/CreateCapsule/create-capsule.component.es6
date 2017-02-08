@@ -8,49 +8,65 @@ export default {
     controller: createCapsuleController,
     controllerAs: "model",
     bindings: {
+        gitFolders: "<",
         selectedGitFolders: '<',
         onGitFoldersChange: '&'
     },
 };
 
 // createCapsuleController.inject = ['dependency1'];
-
 function createCapsuleController($scope) {
     let model = this;
 
     model.$onInit = function () {
-        model.gitFolders = model.SelectedGitFolders ? model.SelectedGitFolders : [];
+        model.gitFolders = this.gitFolders;
         model.onGitFoldersChange = this.onGitFoldersChange;
-        model.SelectedGitFolders = model.SelectedGitFolders ? model.SelectedGitFolders : [];
+        model.selectedGitFolders = this.selectedGitFolders;
     };
 
     model.$onChanges = function (changesObj) {};
+
     model.$onDestory = function () {};
 
+    model.refreshGit = function () {
+        model.gitFolders = model.gitFolders.map((m) => {
+            return gitFolderInfo.GetFileInfo(m.repoInfo.root);
+        })
+    };
+
     model.OpenDirectory = function () {
+        model.loading = true;
         electron.dialog.showOpenDialog({
             title: "Select a folder",
             properties: ["openDirectory"]
         }, (filePath) => {
-            let gitFolder = gitFolderInfo.GitFolders(filePath[0]);
-            model.gitFolders = this.gitFolders.concat.apply(gitFolder);
+            if (filePath) {
+                let gitFolder = gitFolderInfo.GitFolders(filePath[0]);
+                model.gitFolders = this.gitFolders.concat.apply(gitFolder);
+                model.gitFolders.sort((a, b) => {
+                    let current = a.file.name.toLowerCase();
+                    let next = b.file.name.toLowerCase();
+                    return current < next ? -1 : current > next ? 1 : 0; 
+                })
+            }
+            model.loading = false;
             $scope.$apply();
         });
     }
 
     model.AddGitFolders = function (gitFolder) {
         if (!gitFolder.selected) {
-            model.SelectedGitFolders.push(gitFolder); 
+            model.selectedGitFolders.push(gitFolder);
             model.onGitFoldersChange({
-                folders: model.SelectedGitFolders
+                folders: model.selectedGitFolders
             })
         } else {
-            let removethis = model.SelectedGitFolders.filter((el) => {
-                return el.$$hashKey == gitFolder.$$hashKey
+            let removethis = model.selectedGitFolders.filter((el) => {
+                return el.repoInfo.abbreviatedSha == gitFolder.repoInfo.abbreviatedSha
             })[0];
-            let index = model.SelectedGitFolders.indexOf(removethis)
+            let index = model.selectedGitFolders.indexOf(removethis)
             if (index > -1)
-                model.SelectedGitFolders.splice(index, 1);
+                model.selectedGitFolders.splice(index, 1);
         }
     }
 }

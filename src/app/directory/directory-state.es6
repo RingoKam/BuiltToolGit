@@ -2,9 +2,11 @@ export default {
     url: '/directory?capsuleid',
     component: 'directory',
     params: {
-        capsuleid: "234"
+        capsuleid: ""
     },
     resolve: {
-        capsuleid: ($transition$) => $transition$.params().CapsuleId
+        capsuleid: function($transition$) {
+            return $transition$.params().capsuleid
+        }
     }
 }

@@ -1,4 +1,5 @@
 const Q = require('q');
+var pkg = require('../../../package');
 
 function Writewithbreaktag(string) {
     return string + "\n";
@@ -6,8 +7,9 @@ function Writewithbreaktag(string) {
 
 function InitializeLocalVariable(root) {
     let text = "";
-    text += Writewithbreaktag("username=\"USER INPUT\"");
+    // text += Writewithbreaktag("username=\"USER INPUT\"");
     text += Writewithbreaktag("root=\"" + root.replace(/\W/g, '') + "\"");
+    text += Writewithbreaktag(`version="${pkg.name} ${pkg.version} --Amtrust Ed"`);
     return text;
 }
 
@@ -28,12 +30,14 @@ function CreateGitCapsuleLogo() {
 
 function CreateComment(comment) {
     let text = "";
-    let commentsArray = comment.match(new RegExp('.{1,' + 99 + '}', 'g'));
-    text += Writewithbreaktag("echo '##NOTE#############################################################################################'");
+    let commentsArray = comment.match(new RegExp('.{1,' + 70 + '}', 'g'));
+    text += Writewithbreaktag("echo '********************************************************************************'");
+    text += Writewithbreaktag("echo '**                                --COMMENT--                                 **'");
+    text += Writewithbreaktag("echo '********************************************************************************'");
     for (var index in commentsArray) {
-        text += Writewithbreaktag("echo " + commentsArray[index]);
+        text += Writewithbreaktag(`padOutput "7" "${commentsArray[index]}"`);
     }
-    text += Writewithbreaktag("echo '###################################################################################################'");
+    text += Writewithbreaktag("echo '********************************************************************************'");
     return text;
 }
 
@@ -92,10 +96,19 @@ function ParseDirectory(directory) {
 }
 
 function GetProject(projects) {
-    let text = Writewithbreaktag("echo \"Following Git Repository will be created/updated in your root directory\"");
+    let text = Writewithbreaktag("echo -e '\033[1mFollowing Git Repository will be created/updated in your directory.\033[0m'");
+    text += Writewithbreaktag("echo -e '\033[1mIMPORTANT! Changes not committed will be stashed.\033[0m'");
+    text += Writewithbreaktag("echo '================================================================================'"); 
+
+    let longestStringLength = projects.length > 1 
+        ? projects.reduce( (prev, cur) => prev.name.length > cur.name.length ? prev.name.length : cur.name.length)
+        : projects[0].name.length; 
+
     for (let i in projects) {
-        text += Writewithbreaktag("echo \"" + projects[i] + "\"");
+        let padding = Array(1 + longestStringLength - projects[i].name.length).join("-");  
+        text += Writewithbreaktag(`echo "${projects[i].name} ${padding}-> ${projects[i].dir}"`);
     }
+    text += Writewithbreaktag("echo '================================================================================'"); 
     text += Writewithbreaktag("read -p \"Press enter to continue...\"");
     return text;
 }
@@ -108,15 +121,15 @@ function GetUsername() {
 }
 
 exports.createScript = (directory, selectedGitFolders, name, comment) => {
-    let codeFile = CreateGitCapsuleLogo();
+    // let codeFile = CreateGitCapsuleLogo();
     //assuming root is same for now.. 
-    codeFile += InitializeLocalVariable(selectedGitFolders[0].file.root);
-    codeFile += CreatePullCodeFunction();
+    // codeFile += CreatePullCodeFunction();
+    let codeFile = InitializeLocalVariable(selectedGitFolders[0].file.root);
     if (comment) {
         codeFile += CreateComment(comment);
     }
     codeFile += GetProject(selectedGitFolders.map((e) => {
-        return e.file.name
+        return { name: e.file.name, dir: e.repoInfo.root }
     }));
     codeFile += GetUsername();
     codeFile += PullCode(selectedGitFolders);

@@ -1,7 +1,6 @@
 require('jquery');
 require('jstree');
 require('../Assets/css/card.css');
-require('../Assets/css/gitcapsule.css');
 
 import angular from 'angular';
 import 'angular-material/angular-material.css';
@@ -35,16 +34,13 @@ angular
 
         $stateProvider
             .state("directory", directoryState);
-
+            
         $urlRouterProvider.otherwise('/directory')
-
     }])
-    
     .component("home", home)
     .component("directory", directory)
     .component("capsule", capsule)
     .component("history", history)
     .component("createCapsule", createCapsule)
     .component("createSh", createSh)
-
 // home.config();
