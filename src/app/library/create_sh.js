@@ -97,9 +97,13 @@ function ParseDirectory(directory) {
 
 function GetProject(projects) {
     let text = Writewithbreaktag("echo -e '\033[1mFollowing Git Repository will be created/updated in your directory.\033[0m'");
-    let longestStringLength =  projects.reduce( (prev, cur) => prev.name.length > cur.name.length ? prev.name.length : cur.name.length);
     text += Writewithbreaktag("echo -e '\033[1mIMPORTANT! Changes not committed will be stashed.\033[0m'");
     text += Writewithbreaktag("echo '================================================================================'"); 
+
+    let longestStringLength = projects.length > 1 
+        ? projects.reduce( (prev, cur) => prev.name.length > cur.name.length ? prev.name.length : cur.name.length)
+        : projects[0].name.length; 
+
     for (let i in projects) {
         let padding = Array(1 + longestStringLength - projects[i].name.length).join("-");  
         text += Writewithbreaktag(`echo "${projects[i].name} ${padding}-> ${projects[i].dir}"`);
