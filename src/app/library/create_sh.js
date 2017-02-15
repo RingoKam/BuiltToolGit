@@ -100,9 +100,7 @@ function GetProject(projects) {
     text += Writewithbreaktag("echo -e '\033[1mIMPORTANT! Changes not committed will be stashed.\033[0m'");
     text += Writewithbreaktag("echo '================================================================================'"); 
 
-    let longestStringLength = projects.length > 1 
-        ? projects.reduce( (prev, cur) => prev.name.length > cur.name.length ? prev.name.length : cur.name.length)
-        : projects[0].name.length; 
+    let longestStringLength = projects.sort( (a, b) => a.name.length < b.name.length ? +1 : -1 )[0].name.length; 
 
     for (let i in projects) {
         let padding = Array(1 + longestStringLength - projects[i].name.length).join("-");  
@@ -129,7 +127,8 @@ exports.createScript = (directory, selectedGitFolders, name, comment) => {
         codeFile += CreateComment(comment);
     }
     codeFile += GetProject(selectedGitFolders.map((e) => {
-        return { name: e.file.name, dir: e.repoInfo.root }
+        if(e.file.name && e.repoInfo.root)
+            return { name: e.file.name, dir: e.repoInfo.root }
     }));
     codeFile += GetUsername();
     codeFile += PullCode(selectedGitFolders);
