@@ -16,6 +16,7 @@ import history from './history/history.component'
 import createCapsule from './CreateCapsule/create-capsule.component';
 import createSh from './CreateSh/create-sh.component';
 import home from './home/home.component';
+import { GitFolderInfoService }  from './services/git-folder-info.service'; 
 
 angular
     .module('app', [
@@ -43,4 +44,5 @@ angular
     .component("history", history)
     .component("createCapsule", createCapsule)
     .component("createSh", createSh)
+    .service("GitFolderInfoService", GitFolderInfoService)
 // home.config();

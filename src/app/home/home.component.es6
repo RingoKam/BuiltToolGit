@@ -7,14 +7,13 @@ export default {
     controllerAs: "model"
 }
 
-homeController.inject = [];
+// homeController.inject = [];
 
 function homeController() {
     
     var model = this;
 
     model.$onInit = function () {
-        debugger;
         model.Capsules = [];
         model.CapsuleName = []; 
         GetCapsuleData();

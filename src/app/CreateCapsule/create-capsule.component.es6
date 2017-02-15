@@ -1,5 +1,5 @@
 const electron = window.require('electron').remote;
-let gitFolderInfo = require('../library/git_folder_info');
+// let gitFolderInfo = require('../library/git_folder_info');
 let createJsTreeObj = require('../library/create_jstree_obj');
 
 export default {
@@ -14,8 +14,8 @@ export default {
     },
 };
 
-// createCapsuleController.inject = ['dependency1'];
-function createCapsuleController($scope) {
+createCapsuleController.inject = ['GitFolderInfoService'];
+function createCapsuleController($scope, GitFolderInfoService) {
     let model = this;
 
     model.$onInit = function () {
@@ -30,7 +30,7 @@ function createCapsuleController($scope) {
 
     model.refreshGit = function () {
         model.gitFolders = model.gitFolders.map((m) => {
-            return gitFolderInfo.GetFileInfo(m.repoInfo.root);
+            return GitFolderInfoService.GetFileInfo(m.repoInfo.root);
         })
     };
 
@@ -41,7 +41,7 @@ function createCapsuleController($scope) {
             properties: ["openDirectory"]
         }, (filePath) => {
             if (filePath) {
-                let gitFolder = gitFolderInfo.GitFolders(filePath[0]);
+                let gitFolder = GitFolderInfoService.GetGitFolders(filePath[0]);
                 model.gitFolders = this.gitFolders.concat.apply(gitFolder);
                 model.gitFolders.sort((a, b) => {
                     let current = a.file.name.toLowerCase();
