@@ -6,8 +6,10 @@ const path = require('path');
 
 electron.app.on('ready', () => {
     let mainWindow = new electron.BrowserWindow({
+        titleBarStyle: 'hidden',
         height: 650,
         width: 1300,
+        backgroundColor: '#00317D',
         icon: path.join(__dirname, 'icon.ico')
     })
 
