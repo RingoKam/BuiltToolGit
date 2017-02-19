@@ -16,6 +16,8 @@ import history from './history/history.component'
 import createCapsule from './CreateCapsule/create-capsule.component';
 import createSh from './CreateSh/create-sh.component';
 import home from './home/home.component';
+import overview from './overview/overview.component';
+import overviewState from './overview/overview-state';
 import { GitFolderInfoService }  from './services/git-folder-info.service'; 
 
 angular
@@ -34,9 +36,10 @@ angular
             });
 
         $stateProvider
-            .state("directory", directoryState);
+            .state("directory", directoryState)
+            .state("overview", overviewState)
             
-        $urlRouterProvider.otherwise('/directory')
+        $urlRouterProvider.otherwise('/overview')
     }])
     .component("home", home)
     .component("directory", directory)
@@ -44,5 +47,6 @@ angular
     .component("history", history)
     .component("createCapsule", createCapsule)
     .component("createSh", createSh)
+    .component("overview", overview)
     .service("GitFolderInfoService", GitFolderInfoService)
 // home.config();

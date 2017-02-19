@@ -1,0 +1,24 @@
+<div ng-if="model.loading">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
+<div ng-if="!model.loading" layout-fill layout="row" layout-wrap>
+    <!--<pre> {{ model | json }} </pre>-->
+    <md-content class="" flex>
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-display-1 bungee"> Create Capsule </span>
+                    <span class="md-subhead"> Select Git Repository(s) to be save/export </span>
+                </md-card-title-text>
+                <md-button ng-click="model.showDetail = !model.showDetail">
+                    <md-tooltip>Show Detail</md-tooltip>
+                    <md-icon aria-label="Browse" class="ti-menu" ng-click="model.showDetail = !model.showDetail"></md-icon>
+                </md-button>
+            </md-card-title>
+            <md-card-content ng-show="model.showDetail">
+                TESTING
+            </md-card-content>
+        </md-card>
+        <md-button flex class="md-warning" aria-label="button-label"> <span class="bungee"> Add New </span> </md-button>
+    </md-content>
+</div>
