@@ -9,7 +9,7 @@
             <md-icon aria-label="Browse" class="ti-plus"></md-icon>
         </md-button>
         <md-button class="md-fab" ng-click="model.refreshGit()">
-            <md-tooltip>Refresh Selected Git Repos</md-tooltip>
+            <md-tooltip>Refresh All</md-tooltip>
             <md-icon aria-label="Reload" class="ti-reload"></md-icon>
         </md-button>
     </md-card-title>
@@ -18,19 +18,28 @@
             <md-progress-circular md-mode="indeterminate"></md-progress-circular>
         </div>
         <md-list ng-if="!model.loading">
-            <md-list-item ng-repeat="gitFolder in model.gitFolders" class="md-3-line fade">
+            <div>
+                <md-input-container>
+                    <label>Filter By</label>
+                    <input ng-model="model.filter"/>
+                </md-input-container>
+            </div>
+            <md-list-item ng-repeat="gitFolder in model.gitFolders | filter: model.filter" class="md-3-line fade">
                 <div class="md-list-item-text" layout="column">
-                    <md-checkbox 
-                    ng-model ="gitFolder.selected"
-                    ng-clicked="gitFolder.selected" 
-                    ng-click="model.AddGitFolders(gitFolder)">
+                    <md-checkbox ng-model="gitFolder.selected" ng-clicked="gitFolder.selected" ng-click="model.AddGitFolders(gitFolder)">
                         <h3>
-                            <span style="font-weight:bold"> {{ gitFolder.file.name }} </span> {{ gitFolder.repoInfo.branch
-                            }}
+                            <span style="font-weight:bold"> {{ gitFolder.file.name }} </span>
+                            <span> {{ gitFolder.repoInfo.branch }} </span>
                         </h3>
                         <h4> {{ gitFolder.repoInfo.root }} </h4>
-                        <p> <span style="font-style: italic"> {{ gitFolder.repoInfo.authorDate | date : format }} </span> {{
-                            gitFolder.repoInfo.commitMessage }} </p>
+                        <p>
+                            <span style="font-style: italic"> {{ gitFolder.repoInfo.authorDate | date : format }} </span>
+                            <span> {{ gitFolder.repoInfo.commitMessage }} </span>
+                        </p>
+                        <md-button class="md-secondary">
+                            <md-tooltip>Refresh Selected</md-tooltip>
+                            <md-icon aria-label="Reload" class="ti-reload" ng-click="model.refreshSelectedGit(gitFolder)"></md-icon>
+                        </md-button>
                 </div>
             </md-list-item>
         </md-list>

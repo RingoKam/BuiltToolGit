@@ -1,6 +1,5 @@
 const electron = window.require('electron').remote;
-// let gitFolderInfo = require('../library/git_folder_info');
-let createJsTreeObj = require('../library/create_jstree_obj');
+const _ = require('lodash'); 
 
 export default {
     template: require("./create-capsule.html"),
@@ -33,6 +32,15 @@ function createCapsuleController($scope, GitFolderInfoService) {
             return GitFolderInfoService.GetFileInfo(m.repoInfo.root);
         })
     };
+
+    model.refreshSelectedGit = function (gitFolder) {
+        debugger;
+        const newInfo = GitFolderInfoService.GetFileInfo(gitFolder.repoInfo.root);
+        let info = model.gitFolders[model.gitFolders.indexOf(gitFolder)];
+        info.repoInfo = newInfo.repoInfo; 
+        info.config = newInfo.config;
+        info.file = newInfo.file;
+    }
 
     model.OpenDirectory = function () {
         model.loading = true;
