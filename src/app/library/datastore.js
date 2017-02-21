@@ -1,6 +1,5 @@
-// let Datastore = requireNode('nedb');
-let Q = require('q');
-let path = require('path');
+const Q = require('q');
+const path = require('path');
 const nedb = require('nedb');
 const remote = require('electron').remote;
 const app = remote.app;
