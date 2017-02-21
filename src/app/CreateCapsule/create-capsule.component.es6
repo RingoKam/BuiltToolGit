@@ -34,7 +34,6 @@ function createCapsuleController($scope, GitFolderInfoService) {
     };
 
     model.refreshSelectedGit = function (gitFolder) {
-        debugger;
         const newInfo = GitFolderInfoService.GetFileInfo(gitFolder.repoInfo.root);
         let info = model.gitFolders[model.gitFolders.indexOf(gitFolder)];
         info.repoInfo = newInfo.repoInfo; 
