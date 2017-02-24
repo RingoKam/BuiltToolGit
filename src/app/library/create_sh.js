@@ -1,5 +1,6 @@
 const Q = require('q');
 var pkg = require('../../../package');
+const _ = require('lodash');  
 
 function Writewithbreaktag(string) {
     return string + "\n";
@@ -100,12 +101,12 @@ function GetProject(projects) {
     text += Writewithbreaktag("echo -e '\033[1mIMPORTANT! Changes not committed will be stashed.\033[0m'");
     text += Writewithbreaktag("echo '================================================================================'"); 
 
-    let longestStringLength = projects.sort( (a, b) => a.name.length < b.name.length ? +1 : -1 )[0].name.length; 
+    const longestStringLength = _.last(_.sortBy(projects, (proj) => {return proj.name.length })).name.length; 
 
-    for (let i in projects) {
-        let padding = Array(1 + longestStringLength - projects[i].name.length).join("-");  
-        text += Writewithbreaktag(`echo "${projects[i].name} ${padding}-> ${projects[i].dir}"`);
-    }
+   projects.forEach((project) => {
+        let padding = Array(1 + longestStringLength - project.name.length).join("-");  
+        text += Writewithbreaktag(`echo "${project.name} ${padding}-> ${project.dir}"`);
+    }); 
     text += Writewithbreaktag("echo '================================================================================'"); 
     text += Writewithbreaktag("read -p \"Press enter to continue...\"");
     return text;
@@ -118,11 +119,18 @@ function GetUsername() {
     return text;
 }
 
+function WriteVersionNum() {
+    let text =  Writewithbreaktag("echo Version: $version");
+    text += Writewithbreaktag("echo");
+    return text;
+}
+
 exports.createScript = (directory, selectedGitFolders, name, comment) => {
     // let codeFile = CreateGitCapsuleLogo();
     //assuming root is same for now.. 
     // codeFile += CreatePullCodeFunction();
     let codeFile = InitializeLocalVariable(selectedGitFolders[0].file.root);
+    codeFile += WriteVersionNum();  
     if (comment) {
         codeFile += CreateComment(comment);
     }

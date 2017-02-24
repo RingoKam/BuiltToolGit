@@ -1,0 +1,27 @@
+<md-content class="colorBackground" flex>
+    <md-card>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-display-1 bungee">Manage History</span>
+                <span class="md-subhead">View/Delete past record(s)</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+            <pre> {{ model.capsuleCollections | json }} </pre>
+            <div ng-repeat="capsule in model.capsuleCollections">
+                <h3>{{ capsule.name }}</h3>
+                <div ng-repeat="record in capsule.collection">
+                    <md-list-item class="md-2-line" ng-click="">
+                        <div class="md-list-item-text">
+                            <h4>{{record.name}}</h4>
+                            <p>{{record.createdOn}}</p>
+                        </div>
+                    </md-list-item>
+                </div>
+            </div>
+        </md-card-content>
+        <md-card-actions layout="" layout-align="center">
+            <md-button class="md-accent md-raised">Create New Bash Script</md-button>
+        </md-card-actions>
+    </md-card>
+</md-content>

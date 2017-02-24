@@ -39,6 +39,7 @@ electron.app.on('ready', () => {
     //     role: "reload"
     // }));
 
+    // menu.append(new electron.MenuItem({})
     // //Dev Tools--- 
     // menu.append(new electron.MenuItem({
     //     role: "toggledevtools"

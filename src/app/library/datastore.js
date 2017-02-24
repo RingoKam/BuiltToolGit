@@ -23,9 +23,21 @@ exports.find = (obj) => {
     var deferred = Q.defer();
     db.find(obj, (err, docs) => {
         if (err) {
-            deferred.reject(new Error(error));
+            deferred.reject(new Error(err));
         } else {
             deferred.resolve(docs);
+        }
+    });
+    return deferred.promise;
+}
+
+exports.remove = (obj) => {
+    var deferred = Q.deferred();
+    db.remove(obj, {}, (err, numRemoved) => {
+        if (err) {
+            deferred.reject(new Error(err));
+        } else {
+            deferred.resolve(numRemoved);
         }
     });
     return deferred.promise;

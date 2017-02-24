@@ -2,6 +2,8 @@ const dataStore = require('../library/datastore');
 const capsuleNameStore = require('../library/capsule_name_store');
 const remote = require('electron').remote
 
+import Q from 'q'; 
+
 export default {
     template: require("./capsule.html"),
     controller: capsuleController,
@@ -25,9 +27,9 @@ function capsuleController($state, $rootScope, $scope, $mdDialog) {
     };
     // model.$onChanges = function (changesObj) {};
     model.changeState = (id) => {
-        $state.go("directory", {
+        $state.go("create", {
             "capsuleid": id
-        });
+        }, { reload: true });
     }
 
     model.PromptNewCapsule = (ev) => {
@@ -42,8 +44,10 @@ function capsuleController($state, $rootScope, $scope, $mdDialog) {
             .cancel('Cancel');
 
         $mdDialog.show(confirm).then(function (name) {
-            if(!model.capsulesName.includes(name)){
-                let promise = capsuleNameStore.insertdb({name});
+            if (!model.capsulesName.includes(name)) {
+                let promise = capsuleNameStore.insertdb({
+                    name
+                });
                 promise.then(remote.getCurrentWindow().reload());
             }
         });
@@ -52,7 +56,6 @@ function capsuleController($state, $rootScope, $scope, $mdDialog) {
     function GrabData() {
         dataStore.find({}).then((data) => {
             model.capsules = RestructureData(data);
-            // $scope.$apply(); 
         });
         capsuleNameStore.find({}).then((data) => {
             model.capsulesName = data.map((m) => m.name)

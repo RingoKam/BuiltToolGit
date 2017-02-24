@@ -8,14 +8,15 @@ import 'font-awesome/css/font-awesome.css';
 import uiRouter from "angular-ui-router";
 import angularAnimate from 'angular-animate';
 import angularMaterial from 'angular-material';
-// import uiSelect from 'ui-select';
-import directory from './directory/directory-component';
-import directoryState from './directory/directory-state';
+import create from './create/create-component';
+import createState from './create/create-state';
 import capsule from './capsule/capsule.component';
 import history from './history/history.component'
 import createCapsule from './CreateCapsule/create-capsule.component';
 import createSh from './CreateSh/create-sh.component';
 import home from './home/home.component';
+import manage from './manage/manage.component';
+import manageState from './manage/manage.state';
 import { GitFolderInfoService }  from './services/git-folder-info.service'; 
 
 angular
@@ -34,15 +35,17 @@ angular
             });
 
         $stateProvider
-            .state("directory", directoryState);
+            .state("create", createState)
+            .state("manage", manageState);
             
-        $urlRouterProvider.otherwise('/directory')
+        $urlRouterProvider.otherwise('/manage')
     }])
     .component("home", home)
-    .component("directory", directory)
+    .component("create", create)
     .component("capsule", capsule)
     .component("history", history)
     .component("createCapsule", createCapsule)
     .component("createSh", createSh)
+    .component("manage", manage)
     .service("GitFolderInfoService", GitFolderInfoService)
 // home.config();

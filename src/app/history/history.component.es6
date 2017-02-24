@@ -15,14 +15,15 @@ function capsuleController($state, $rootScope, $scope) {
     };
 
     let grabDataEvent = $rootScope.$on("refreshData", GrabData)
-
     model.$onDestory = function () {
         grabDataEvent();
     };
 
     model.changeState = (id) => {
-        $state.go("directory", {
+        $state.go("create", {
             "capsuleid": id
+        }, {
+            reload: true
         });
     }
 
