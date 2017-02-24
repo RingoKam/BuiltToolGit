@@ -38,7 +38,7 @@ angular
             .state("create", createState)
             .state("manage", manageState);
             
-        $urlRouterProvider.otherwise('/manage')
+        $urlRouterProvider.otherwise('/create')
     }])
     .component("home", home)
     .component("create", create)
