@@ -1,7 +1,7 @@
 require('jquery');
 require('../Assets/css/card.css');
 const profile = require('./library/CustomProfile.js');
-require ('../Assets/css/ng-table.scss');
+// require ('../Assets/css/ng-table.scss');
 // require ('../Assets/css/bootstrap.css');
 
 import angular from 'angular';

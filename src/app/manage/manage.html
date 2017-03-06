@@ -18,7 +18,7 @@
     <md-card>
         <table ng-table="model.tableParams" class="table table-condensed table-bordered">
             <tr ng-repeat="record in $data">
-                <td data-title="'Capsule'" header-class="'text-left'">
+                <td data-title="'Capsule'" header-class="'text-right'">
                     {{record.capsule}}
                 </td>
                 <td data-title="'Name'" header-class="'text-right'">
@@ -30,7 +30,7 @@
                 <td data-title="'Created On'" header-class="'text-right'">
                     {{record.createdOn}}
                 </td>
-                <td data-title="'# of Repos'" header-class="'text-right'">
+                <td data-title="'# of Repos'" header-class="'text-center'">
                     {{record.numberOfProject}}
                 </td>
             </tr>
