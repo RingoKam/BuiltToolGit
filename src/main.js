@@ -10,9 +10,12 @@ electron.app.on('ready', () => {
         height: 650,
         width: 1300,
         backgroundColor: '#00317D',
-        icon: path.join(__dirname, 'icon.ico')
+        icon: path.join(__dirname, 'icon.ico'),
+        show: false
     })
-
+    mainWindow.once('ready-to-show', () => {
+        mainWindow.show(); 
+    })
     mainWindow.loadURL('file://' + __dirname + '/app/index.html');
     mainWindow.on('closed', function () {
         mainWindow = null

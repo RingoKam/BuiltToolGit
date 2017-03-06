@@ -7,7 +7,11 @@ import Q from 'q';
 export default {
     template: require("./capsule.html"),
     controller: capsuleController,
-    controllerAs: "model"
+    controllerAs: "model",
+    bindings: {
+        capsules: '<',
+        capsulesName: '<'
+    }
 };
 
 capsuleController.inject = ['$state'];
@@ -17,17 +21,19 @@ function capsuleController($state, $rootScope, $scope, $mdDialog) {
     var model = this;
 
     model.$onInit = function () {
-        GrabData();
+        
     };
 
-    let grabDataEvent = $rootScope.$on("refreshData", GrabData)
+    model.$onChanges = function(changesObj) {
+        model.capsules = RestructureData(model.capsules);
+    };
+    
 
     model.$onDestory = function () {
-        grabDataEvent();
     };
-    // model.$onChanges = function (changesObj) {};
+
     model.changeState = (id) => {
-        $state.go("create", {
+        $state.go("root.home.create", {
             "capsuleid": id
         }, { reload: true });
     }
@@ -51,15 +57,6 @@ function capsuleController($state, $rootScope, $scope, $mdDialog) {
                 promise.then(remote.getCurrentWindow().reload());
             }
         });
-    }
-
-    function GrabData() {
-        dataStore.find({}).then((data) => {
-            model.capsules = RestructureData(data);
-        });
-        capsuleNameStore.find({}).then((data) => {
-            model.capsulesName = data.map((m) => m.name)
-        })
     }
 
     function RestructureData(data) {

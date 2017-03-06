@@ -6,11 +6,11 @@
         </md-card-title-text>
         <md-button class="md-fab" ng-click="model.OpenDirectory()">
             <md-tooltip>Add Git Repo(s)</md-tooltip>
-            <md-icon aria-label="Browse" class="ti-plus"></md-icon>
+            <md-icon md-colors="{color: 'default-background-hue-1'}" aria-label="Browse" class="ti-plus"></md-icon>
         </md-button>
         <md-button class="md-fab" ng-click="model.refreshGit()">
             <md-tooltip>Refresh All</md-tooltip>
-            <md-icon aria-label="Reload" class="ti-reload"></md-icon>
+            <md-icon md-colors="{color: 'default-background-hue-1'}" aria-label="Reload" class="ti-reload"></md-icon>
         </md-button>
     </md-card-title>
     <md-card-content class="">
@@ -36,7 +36,7 @@
                             <span style="font-style: italic"> {{ gitFolder.repoInfo.authorDate | date : format }} </span>
                             <span> {{ gitFolder.repoInfo.commitMessage }} </span>
                         </p>
-                        <md-button class="md-secondary">
+                        <md-button class="md-secondary">    
                             <md-tooltip>Refresh Selected</md-tooltip>
                             <md-icon aria-label="Reload" class="ti-reload" ng-click="model.refreshSelectedGit(gitFolder)"></md-icon>
                         </md-button>

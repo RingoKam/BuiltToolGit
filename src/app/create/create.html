@@ -3,11 +3,11 @@
 </div>
 <div ng-if="!model.loading" layout-fill layout="row" layout-wrap>
     <!--<pre> {{ model | json }} </pre>-->
-    <md-content class="colorBackground" flex="50">
+    <md-content flex="50">
         <create-capsule git-folders="model.gitFolders" selected-git-folders="model.selectedGitFolders" on-git-folders-change="model.updateGitFolders(folders)">
         </create-capsule>
     </md-content>
-    <md-content class="colorBackground" flex>
+    <md-content flex>
         <create-sh git-folders="model.selectedGitFolders">
         </create-sh>
     </md-content>

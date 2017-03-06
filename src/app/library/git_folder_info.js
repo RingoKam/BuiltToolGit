@@ -20,15 +20,19 @@ function readDirectory(directory, gitFolder) {
     } else if (fs.lstatSync(directory).isDirectory()) {
         var files = fs.readdirSync(directory);
         for (let i = 0; i < files.length; i++) {
-            let fullpath = directory + "/" + files[i];
-            readDirectory(fullpath, gitFolder);
+            if (files[i] !== "node_modules") {
+                let fullpath = directory + "/" + files[i];
+                readDirectory(fullpath, gitFolder);
+            }
         }
     }
 };
 
 exports.GetFileInfo = (directory) => {
     const repoInfo = getRepoInfo(directory);
-    const config = parseGit.sync({path: directory + "/.git/config"});
+    const config = parseGit.sync({
+        path: directory + "/.git/config"
+    });
     const file = path.parse(directory);
 
     return {

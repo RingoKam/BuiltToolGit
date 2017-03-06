@@ -1,5 +1,5 @@
 const Q = require('q');
-var pkg = require('../../../package');
+const pkg = require('../../../package');
 const _ = require('lodash');  
 
 function Writewithbreaktag(string) {
@@ -9,23 +9,8 @@ function Writewithbreaktag(string) {
 function InitializeLocalVariable(root) {
     let text = "";
     // text += Writewithbreaktag("username=\"USER INPUT\"");
-    text += Writewithbreaktag("root=\"" + root.replace(/\W/g, '') + "\"");
-    text += Writewithbreaktag(`version="${pkg.name} ${pkg.version} --Amtrust Ed"`);
-    return text;
-}
-
-function CreateGitCapsuleLogo() {
-    let text = "";
-    text += Writewithbreaktag("echo '**************************************************************************************************' ");
-    text += Writewithbreaktag("echo '  /$$$$$$  /$$$$$$ /$$$$$$$$  /$$$$$$   /$$$$$$  /$$$$$$$   /$$$$$$  /$$   /$$ /$$       /$$$$$$$$' ")
-    text += Writewithbreaktag("echo ' /$$__  $$|_  $$_/|__  $$__/ /$$__  $$ /$$__  $$| $$__  $$ /$$__  $$| $$  | $$| $$      | $$_____/' ")
-    text += Writewithbreaktag("echo '| $$  \\__/  | $$     | $$   | $$  \\__/| $$  \\ $$| $$  \\ $$| $$  \\__/| $$  | $$| $$      | $$      ' ")
-    text += Writewithbreaktag("echo '| $$ /$$$$  | $$     | $$   | $$      | $$$$$$$$| $$$$$$$/|  $$$$$$ | $$  | $$| $$      | $$$$$   ' ")
-    text += Writewithbreaktag("echo '| $$|_  $$  | $$     | $$   | $$      | $$__  $$| $$____/  \\____  $$| $$  | $$| $$      | $$__/   ' ")
-    text += Writewithbreaktag("echo '| $$  \\ $$  | $$     | $$   | $$    $$| $$  | $$| $$       /$$  \\ $$| $$  | $$| $$      | $$      ' ")
-    text += Writewithbreaktag("echo '|  $$$$$$/ /$$$$$$   | $$   |  $$$$$$/| $$  | $$| $$      |  $$$$$$/|  $$$$$$/| $$$$$$$$| $$$$$$$$' ")
-    text += Writewithbreaktag("echo '\\______/ |______/   |__/    \\______/ |__/  |__/|__/       \\______/  \\______/ |________/|________/ ' ")
-    text += Writewithbreaktag("echo '**************************************************************************************************' ")
+    text += Writewithbreaktag(`root=\"${root.replace(/\W/g, '')}\"`);
+    text += Writewithbreaktag(`version="${pkg.name} ${pkg.version}"`);
     return text;
 }
 
@@ -42,45 +27,12 @@ function CreateComment(comment) {
     return text;
 }
 
-//amtrust version
-function CreatePullCodeFunction() {
-    let text = ""
-    text += Writewithbreaktag("function PullCode()");
-    text += Writewithbreaktag("{")
-    text += Writewithbreaktag("local url=$1"); //project git location 
-    text += Writewithbreaktag("local fulldir=$2"); //the project folder 
-    text += Writewithbreaktag("local project=$3"); //project name 
-    text += Writewithbreaktag("local sha=$4"); //sha for checkout
-    text += Writewithbreaktag("echo -- $project \"-------------------------------------------------------- \"");
-    text += Writewithbreaktag("if [ ! -d /$root/$fulldir/$project ]; then");
-    text += Writewithbreaktag("mkdir -p /$root/$fulldir/");
-    text += Writewithbreaktag("echo \"-- CHANGING DIRECTORY --\"");
-    text += Writewithbreaktag("cd /$root/$fulldir/");
-    text += Writewithbreaktag("git clone $url");
-    text += Writewithbreaktag("fi");
-    text += Writewithbreaktag("echo \"-- CHANGING DIRECTORY --\"");
-    text += Writewithbreaktag("cd /$root/$fulldir/$project");
-    text += Writewithbreaktag("echo \"current working directory:\" $PWD");
-    text += Writewithbreaktag("git clone $url");
-    text += Writewithbreaktag("echo");
-    text += Writewithbreaktag("echo \"-- RESETTING --\"");
-    text += Writewithbreaktag("git reset --hard");
-    text += Writewithbreaktag("echo");
-    text += Writewithbreaktag("echo \"-- FETCHING -- \"");
-    text += Writewithbreaktag("git fetch");
-    text += Writewithbreaktag("echo");
-    text += Writewithbreaktag("echo \" -- CHECKING OUT BRANCH --\"");
-    text += Writewithbreaktag("git checkout $sha");
-    text += Writewithbreaktag("echo");
-    text += Writewithbreaktag("}")
-    return text;
-}
-
 function PullCode(selectedGitFolders) {
     let text = "";
     for (let i = 0; i < selectedGitFolders.length; i++) {
         let dir = ParseDirectory(selectedGitFolders[i].file.dir);
-        text += Writewithbreaktag("PullCode \"$username@sourcecontrol.amtrustservices.com:" + selectedGitFolders[i].config["remote \"origin\""].url.split(":").pop() + "\" " + "\"" + dir + "\" " + "\"" + selectedGitFolders[i].file.base + "\" " + "\"" + selectedGitFolders[i].repoInfo.sha + "\"");
+        text += Writewithbreaktag(`PullCode \"${selectedGitFolders[i].config["remote \"origin\""].url}\" \"${dir}\" \"${selectedGitFolders[i].file.base}\" \"${selectedGitFolders[i].repoInfo.sha}\"`);
+        // text += Writewithbreaktag("PullCode \"$username@sourcecontrol.amtrustservices.com:" + selectedGitFolders[i].config["remote \"origin\""].url.split(":").pop() + "\" " + "\"" + dir + "\" " + "\"" + selectedGitFolders[i].file.base + "\" " + "\"" + selectedGitFolders[i].repoInfo.sha + "\"");
     }
     return text;
 }
@@ -112,12 +64,12 @@ function GetProject(projects) {
     return text;
 }
 
-function GetUsername() {
-    let text = "";
-    text += Writewithbreaktag("echo")
-    text += Writewithbreaktag("read -p \"Enter your GIT username, then click enter: \" username")
-    return text;
-}
+// function GetUsername() {
+//     let text = "";
+//     text += Writewithbreaktag("echo")
+//     text += Writewithbreaktag("read -p \"Enter your GIT username, then press enter: \" username")
+//     return text;
+// }
 
 function WriteVersionNum() {
     let text =  Writewithbreaktag("echo Version: $version");
@@ -138,7 +90,7 @@ exports.createScript = (directory, selectedGitFolders, name, comment) => {
         if(e.file.name && e.repoInfo.root)
             return { name: e.file.name, dir: e.repoInfo.root }
     }));
-    codeFile += GetUsername();
+    // codeFile += GetUsername();
     codeFile += PullCode(selectedGitFolders);
     const fileName = directory + "\\" + name + ".sh";
     return {

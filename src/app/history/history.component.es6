@@ -3,7 +3,10 @@ const dataStore = require('../library/datastore');
 export default {
     template: require("./history.html"),
     controller: capsuleController,
-    controllerAs: "model"
+    controllerAs: "model",
+    bindings: {
+        capsules: '<'
+    }
 };
 
 capsuleController.inject = ['$state'];
@@ -11,25 +14,18 @@ capsuleController.inject = ['$state'];
 function capsuleController($state, $rootScope, $scope) {
     var model = this;
     model.$onInit = function () {
-        GrabData();
+        model.capsules = this.capsules;  
     };
-
-    let grabDataEvent = $rootScope.$on("refreshData", GrabData)
+    
     model.$onDestory = function () {
         grabDataEvent();
     };
 
     model.changeState = (id) => {
-        $state.go("create", {
+        $state.go("root.home.create", {
             "capsuleid": id
         }, {
             reload: true
-        });
-    }
-
-    function GrabData() {
-        dataStore.find({}).then((data) => {
-            model.capsules = data;
         });
     }
 }

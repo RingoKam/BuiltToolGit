@@ -1,4 +1,4 @@
-<md-content class="colorBackground" flex>
+<md-content flex>
     <md-card>
         <md-card-title>
             <md-card-title-text>
@@ -7,21 +7,23 @@
             </md-card-title-text>
         </md-card-title>
         <md-card-content>
-            <pre> {{ model.capsuleCollections | json }} </pre>
-            <div ng-repeat="capsule in model.capsuleCollections">
-                <h3>{{ capsule.name }}</h3>
+            <div ng-repeat="capsule in model.capsuleCollections" flex>
+                <md-divider>
+                    <h3>{{ capsule.name }}</h3>
+                </md-divider>
                 <div ng-repeat="record in capsule.collection">
                     <md-list-item class="md-2-line" ng-click="">
                         <div class="md-list-item-text">
-                            <h4>{{record.name}}</h4>
+                            <h4>File Name: {{record.name}}</h4>
                             <p>{{record.createdOn}}</p>
+                            <p>{{record.comment}}</p>
                         </div>
                     </md-list-item>
                 </div>
             </div>
         </md-card-content>
         <md-card-actions layout="" layout-align="center">
-            <md-button class="md-accent md-raised">Create New Bash Script</md-button>
+            <md-button class="md-accent md-raised" ui-sref='root.home.create'>Create New Bash Script</md-button>
         </md-card-actions>
     </md-card>
 </md-content>

@@ -1,7 +1,26 @@
+const dataStore = require('../library/datastore');
+
 export default {
-    url: '/manage',
+    url: '/manage?dbRecords',
     component: 'manage',
     params: {
-        capsuleid: ""
+        dbRecords: []
+    },
+    resolve: {
+        dbRecords: () => {
+            return dataStore.find({}); 
+        }
     }
 }
+// export default {
+//     url: '/create?capsuleid',
+//     component: 'create',
+//     params: {
+//         capsuleid: ""
+//     },
+//     resolve: {
+//         capsuleid: function($transition$) {
+//             return $transition$.params().capsuleid
+//         }
+//     }
+// }

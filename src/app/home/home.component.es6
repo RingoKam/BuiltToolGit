@@ -7,15 +7,11 @@ export default {
     controllerAs: "model"
 }
 
-// homeController.inject = [];
-
 function homeController() {
-    
+
     var model = this;
 
     model.$onInit = function () {
-        model.Capsules = [];
-        model.CapsuleName = []; 
         GetCapsuleData();
         GetCapsuleNameData();
     };
@@ -38,6 +34,8 @@ function homeController() {
     function GetCapsuleData() {
         dataStore.find({}).then((data) => {
             model.Capsules = data;
+        }).catch((err) => {
+            console.log(err)
         });
     }
 
