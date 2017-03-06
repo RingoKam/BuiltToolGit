@@ -1,6 +1,8 @@
 require('jquery');
 require('../Assets/css/card.css');
 const profile = require('./library/CustomProfile.js');
+require ('../Assets/css/ng-table.scss');
+// require ('../Assets/css/bootstrap.css');
 
 import angular from 'angular';
 import 'angular-material/angular-material.css';
@@ -20,6 +22,9 @@ import manage from './manage/manage.component';
 import manageState from './manage/manage.state';
 import root from './root.component';
 import rootState from './root.state';
+import { ngTableModule } from 'ng-table';
+
+
 import {
     GitFolderInfoService
 } from './services/git-folder-info.service';
@@ -28,6 +33,7 @@ angular
     .module('app', [
         angularMaterial,
         uiRouter,
+        ngTableModule.name
     ])
     .config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
 

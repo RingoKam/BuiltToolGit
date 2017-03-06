@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="node_modules/bootstrap-css-only/css/bootstrap.min.css">
+<link rel="stylesheet" href="node_modules/ng-table/bundles/ng-table.css">
 <md-content flex>
     <md-card>
         <md-card-title>
@@ -7,23 +9,31 @@
             </md-card-title-text>
         </md-card-title>
         <md-card-content>
-            <div ng-repeat="capsule in model.capsuleCollections" flex>
-                <md-divider>
-                    <h3>{{ capsule.name }}</h3>
-                </md-divider>
-                <div ng-repeat="record in capsule.collection">
-                    <md-list-item class="md-2-line" ng-click="">
-                        <div class="md-list-item-text">
-                            <h4>File Name: {{record.name}}</h4>
-                            <p>{{record.createdOn}}</p>
-                            <p>{{record.comment}}</p>
-                        </div>
-                    </md-list-item>
-                </div>
-            </div>
         </md-card-content>
         <md-card-actions layout="" layout-align="center">
             <md-button class="md-accent md-raised" ui-sref='root.home.create'>Create New Bash Script</md-button>
         </md-card-actions>
+    </md-card>
+
+    <md-card>
+        <table ng-table="model.tableParams" class="table table-condensed table-bordered">
+            <tr ng-repeat="record in $data">
+                <td data-title="'Capsule'" header-class="'text-left'">
+                    {{record.capsule}}
+                </td>
+                <td data-title="'Name'" header-class="'text-right'">
+                    {{record.fileName}}
+                </td>
+                <td data-title="'Comment'" header-class="'text-right'">
+                    {{record.comment}}
+                </td>
+                <td data-title="'Created On'" header-class="'text-right'">
+                    {{record.createdOn}}
+                </td>
+                <td data-title="'# of Repos'" header-class="'text-right'">
+                    {{record.numberOfProject}}
+                </td>
+            </tr>
+        </table>
     </md-card>
 </md-content>
